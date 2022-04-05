@@ -23,19 +23,23 @@ public abstract class PaymentCard extends Card {
     }
 
     public String getSecurityCode() {
-        return securityCode;
+        return this.securityCode;
     }
 
     public int getLimit() {
-        return limit;
+        return this.limit;
+    }
+
+    public void setLimit(int newLimit) {
+        this.limit = newLimit;
     }
 
     public Date getExpiryDate() {
-        return expiryDate;
+        return this.expiryDate;
     }
     
-   abstract boolean checkAvailableFunds(int amount);
+    public abstract boolean checkAvailableFunds(int amount);
    
-   abstract int withdraw(int amount);
+    public abstract int withdraw(int amount);
     
 }

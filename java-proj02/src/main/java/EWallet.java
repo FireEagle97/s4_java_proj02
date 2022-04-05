@@ -21,15 +21,16 @@ public class EWallet {
     }
 
     public List<Card> getCardList() {
-        return CardList;
+        return this.CardList;
     }
 
     public List<Note> getNoteList() {
-        return NoteList;
+        return this.NoteList;
     }
 
     public double getCash() {
-        return cash;
+        return this.cash;
     }
+
     
 }

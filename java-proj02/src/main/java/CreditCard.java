@@ -18,12 +18,12 @@ public class CreditCard extends PaymentCard {
     }
 
     @Override
-    boolean checkAvailableFunds(int amount) {
+    public boolean checkAvailableFunds(int amount) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    int withdraw(int amount) {
+    public int withdraw(int amount) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

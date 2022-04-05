@@ -18,13 +18,17 @@ public class DebitCard extends PaymentCard {
     }
 
     @Override
-    boolean checkAvailableFunds(int amount) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean checkAvailableFunds(int amount) {
+        return (amount <= this.getLimit());
     }
 
     @Override
-    int withdraw(int amount) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int withdraw(int amount) {
+        if (this.getLimit() - amount < 0) {
+            throw new IllegalStateException("Amount subtracted leads to negative balance; this shouldn't be caused");
+        }
+        setLimit(this.getLimit() - amount); //subtract from  bank balance, return the amount.
+        return amount;
     }
     
 }
