@@ -23,7 +23,7 @@ public class CreditCard extends PaymentCard {
     }
 
     @Override
-    public int withdraw(int amount) {
+    public boolean withdraw(int amount) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

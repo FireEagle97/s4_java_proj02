@@ -23,12 +23,12 @@ public class DebitCard extends PaymentCard {
     }
 
     @Override
-    public int withdraw(int amount) {
+    public boolean withdraw(int amount) {
         if (this.getLimit() - amount < 0) {
-            throw new IllegalStateException("Amount subtracted leads to negative balance; this shouldn't be caused");
+            return false;
         }
         setLimit(this.getLimit() - amount); //subtract from  bank balance, return the amount.
-        return amount;
+        return true;
     }
     
 }

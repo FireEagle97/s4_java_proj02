@@ -40,6 +40,6 @@ public abstract class PaymentCard extends Card {
     
     public abstract boolean checkAvailableFunds(int amount);
    
-    public abstract int withdraw(int amount);
+    public abstract boolean withdraw(int amount);
     
 }

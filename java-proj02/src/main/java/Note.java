@@ -20,11 +20,11 @@ public class Note {
     }
     
     public Date getDateOfCreation() {
-        return dateOfCreation;
+        return this.dateOfCreation;
     }
 
     public String getNoteBody() {
-        return noteBody;
+        return this.noteBody;
     }
 
     
