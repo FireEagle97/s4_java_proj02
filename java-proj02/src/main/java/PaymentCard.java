@@ -10,7 +10,7 @@
  */
 import java.text.SimpleDateFormat;
 import java.util.Date;
-public abstract class PaymentCard extends Card {
+public class PaymentCard extends Card {
     private String securityCode;
     private int limit;
     private Date expiryDate;
@@ -37,6 +37,15 @@ public abstract class PaymentCard extends Card {
     public Date getExpiryDate() {
         return this.expiryDate;
     }
-
     
+    @Override
+    public boolean equals(Object card){
+        if (!(card instanceof PaymentCard)){
+            System.out.println("not equal type");
+            return false;
+        }
+        return true;
+        
+    }
+
 }

@@ -14,9 +14,9 @@ public class EWallet {
     private List<Note> noteList;
     private double cash;
 
-    public EWallet(List<Card> CardList, List<Note> NoteList, double cash) {
-        this.cardList = CardList;
-        this.noteList = NoteList;
+    public EWallet(List<Card> cardList, List<Note> noteList, double cash) {
+        this.cardList = cardList;
+        this.noteList = noteList;
         this.cash = cash;
     }
 
@@ -32,7 +32,28 @@ public class EWallet {
         return this.cash;
     }
 
+    public void listNotes(){
+        if (noteList.size() > 10){
+            throw new IllegalArgumentException("number of notes exceeds the limit");
+        } 
+        for(Note note: noteList){
+            System.out.println(note);
+        }
+        }
+    
+    public void addNote(Note newNote){
+        noteList.add(newNote);
+    }
 
+    public void deleteNote(Note aNote){
+        for(Note note: noteList){
+            if(note.equals(aNote)){
+                noteList.remove(note);
+            }
+        }
+    }
+
+    
     public void addCard(Card newCard) {
         if (this.cardList.size() >= 10) {
             throw new IllegalArgumentException("Maximum number of cards reached!");
@@ -52,19 +73,7 @@ public class EWallet {
             throw  new IllegalArgumentException("not a credit card");
         }
     }
-    /*
-    The operations of the e-wallet are:
-1)	Add a card. Kyle
-2)	Delete a card.  Kyle
-3)	Pay.  Kyle
-4)	Browse through the notes. dany
-5)	Add a note. dany
-6)	Delete a note. dany
-7)	Save e-wallet to DB.
-8)	Load e-wallet from DB.
-9)	Display how much cash we have Kyle
-10)	Add cash dany
 
 
-     */
+    
 }

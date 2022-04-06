@@ -26,7 +26,18 @@ public class Note {
     public String getNoteBody() {
         return this.noteBody;
     }
-
+    @Override
+    public boolean equals(Object note) {
+        if (!(note instanceof Note)) {
+            System.out.println("not equal type");
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public String toString(){
+        return "This note was written on " + this.dateOfCreation + "\n" + this.noteBody;
+    }
     
     
     
