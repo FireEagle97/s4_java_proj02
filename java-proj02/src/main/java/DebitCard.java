@@ -17,6 +17,7 @@ public class DebitCard extends PaymentCard {
         super(securityCode, limit, expiryDate, cardHolderName, cardNumber);
     }
 
+    
     public boolean checkAvailableFunds(int amount) {
         return (amount <= this.getLimit());
     }
@@ -27,6 +28,10 @@ public class DebitCard extends PaymentCard {
         }
         setLimit(this.getLimit() - amount); //subtract from  bank balance, return the amount.
         return true;
+    }
+    
+    public void addCash(int amount){
+        this.setLimit(this.getLimit()+ amount);
     }
     
 }

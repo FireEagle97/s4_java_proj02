@@ -27,4 +27,14 @@ public class PersonalCard extends Card {
     public String getDescription() {
         return this.description;
     }
+
+    @Override
+    public boolean equals(Object card){
+        if (!(card instanceof PersonalCard)){
+            System.out.println("not equal type");
+            return false;
+        }
+        return true;
+        
+    }
 }
