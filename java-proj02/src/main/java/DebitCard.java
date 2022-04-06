@@ -17,12 +17,10 @@ public class DebitCard extends PaymentCard {
         super(securityCode, limit, expiryDate, cardHolderName, cardNumber);
     }
 
-    @Override
     public boolean checkAvailableFunds(int amount) {
         return (amount <= this.getLimit());
     }
 
-    @Override
     public boolean withdraw(int amount) {
         if (this.getLimit() - amount < 0) {
             return false;

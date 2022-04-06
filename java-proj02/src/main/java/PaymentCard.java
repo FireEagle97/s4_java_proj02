@@ -37,9 +37,6 @@ public abstract class PaymentCard extends Card {
     public Date getExpiryDate() {
         return this.expiryDate;
     }
-    
-    public abstract boolean checkAvailableFunds(int amount);
-   
-    public abstract boolean withdraw(int amount);
+
     
 }
