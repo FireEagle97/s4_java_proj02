@@ -13,23 +13,27 @@ import java.util.Date;
  */
 public class CreditCard extends PaymentCard {
 
+    private int amountOwed;
+
     public CreditCard(String securityCode, int limit, Date expiryDate, String cardHolderName, String cardNumber) {
         super(securityCode, limit, expiryDate, cardHolderName, cardNumber);
+        this.amountOwed = 0;
         if (limit < 100 || limit > 5000) {
             throw new IllegalArgumentException("Limit must be within 100 and 5000");
         }
     }
 
-    @Override
     public boolean checkAvailableFunds(int amount) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public boolean withdraw(int amount) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    public void payCard(int amount) {
+        this.amountOwed =- amountOwed;
+    }
     //notify(int amount)
 
     /*
