@@ -13,8 +13,8 @@ import java.util.Date;
  */
 public class DebitCard extends PaymentCard {
 
-    public DebitCard(String securityCode, int limit, Date expiryDate, String cardHolderName, String cardNumber) {
-        super(securityCode, limit, expiryDate, cardHolderName, cardNumber);
+    public DebitCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
+        super(securityCode, limit, expiryMonth, expiryYear, cardHolderName, cardNumber);
     }
 
     

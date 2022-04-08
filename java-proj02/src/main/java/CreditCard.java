@@ -17,8 +17,8 @@ public class CreditCard extends PaymentCard {
 
     private int amountOwed;
     
-    public CreditCard(String securityCode, int limit, Date expiryDate, String cardHolderName, String cardNumber) {
-        super(securityCode, limit, expiryDate, cardHolderName, cardNumber);
+    public CreditCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
+        super(securityCode, limit,expiryMonth, expiryYear, cardHolderName, cardNumber);
     }
 
     

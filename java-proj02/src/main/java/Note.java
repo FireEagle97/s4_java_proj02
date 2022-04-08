@@ -8,14 +8,12 @@
  *
  * @author 1811257
  */
-import java.text.SimpleDateFormat;
-import java.util.Date;
 public class Note {
     private Date dateOfCreation;
     private String noteBody;
 
-    public Note(Date dateOfCreation, String noteBody) {
-        this.dateOfCreation = dateOfCreation;
+    public Note(int month,int year, String noteBody) {
+        this.dateOfCreation = new Date(year,month);
         this.noteBody = noteBody;
     }
     

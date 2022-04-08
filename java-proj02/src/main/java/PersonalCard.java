@@ -8,19 +8,17 @@
  *
  * @author 1811257
  */
-import java.text.SimpleDateFormat;
-import java.util.Date;
 public class PersonalCard extends Card {
-    private ExpiryDate expiryDate;
+    private Date expiryDate;
     private String description; // ex: Driver's license, business card, medicare
 
     public PersonalCard(String cardHolderName, String cardNumber,int expiryYear, int expiryMonth, String description) {
         super(cardHolderName, cardNumber);
-        this.expiryDate = new ExpiryDate(expiryYear, expiryMonth);
+        this.expiryDate = new Date(expiryYear, expiryMonth);
         this.description = description;
     }
 
-    public ExpiryDate getExpiryDate() {
+    public Date getExpiryDate() {
         return this.expiryDate;
     }
 

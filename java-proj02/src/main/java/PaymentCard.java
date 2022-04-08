@@ -13,13 +13,13 @@ import java.text.SimpleDateFormat;
 public class PaymentCard extends Card {
     private String securityCode;
     private int limit;
-    private ExpiryDate expiryDate;
+    private Date expiryDate;
 
     public PaymentCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
         super(cardHolderName, cardNumber);
         this.securityCode = securityCode;
         this.limit = limit;
-        this.expiryDate = new ExpiryDate(expiryYear,expiryMonth);
+        this.expiryDate = new Date(expiryYear,expiryMonth);
     }
 
     public String getSecurityCode() {
@@ -34,7 +34,7 @@ public class PaymentCard extends Card {
         this.limit = newLimit;
     }
 
-    public ExpiryDate getExpiryDate() {
+    public Date getExpiryDate() {
         return this.expiryDate;
     }
     
