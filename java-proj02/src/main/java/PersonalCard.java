@@ -18,6 +18,7 @@ public class PersonalCard extends Card {
         this.description = description;
     }
 
+   
     public Date getExpiryDate() {
         return this.expiryDate;
     }
@@ -35,4 +36,9 @@ public class PersonalCard extends Card {
         return true;
         
     }
+     @Override
+    public String toString() {
+        return "cardHolderName" + this.getCardHolderName() + "cardNumber" + this.getCardNumber()+ "expiryDate=" + expiryDate + ", description=" + description;
+    }
+
 }

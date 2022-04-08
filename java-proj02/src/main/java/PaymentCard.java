@@ -48,4 +48,9 @@ public class PaymentCard extends Card {
         
     }
 
+    @Override
+    public String toString() {
+        return "cardHolderName=" + this.getCardHolderName()+"cardNumber=" + this.getCardNumber() +"securityCode=" + securityCode + ", limit=" + limit + ", expiryDate=" + expiryDate;
+    }
+
 }

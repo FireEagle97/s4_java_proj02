@@ -8,12 +8,18 @@
  *
  * @author 1811257
  */
-public class ExpiryDate {
+public class Date {
     private int month;
     private int year;
-    public ExpiryDate(int year, int month){
+    private int day;
+    public Date(int year, int month){
         this.month = month;
         this.year = year;
+    }
+    public Date(int year, int month, int day){
+      this.month = month;
+      this.year = year;
+      this.day = day;
     }
 
     public int getMonth() {
@@ -26,7 +32,13 @@ public class ExpiryDate {
 
     @Override
     public String toString() {
-        return "month=" + month + ", year=" + year;
+        if(this.day == 0){
+            return "month=" + month + ", year=" + year;
+        }
+      
+        return "month=" + month + ", year=" + year + "day=" + day;
+        
+            
     }
     
 }
