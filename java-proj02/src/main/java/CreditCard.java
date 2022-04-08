@@ -1,7 +1,7 @@
 
 import java.util.Date;
 
-import javax.naming.LimitExceededException;
+//import javax.naming.LimitExceededException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,14 +31,14 @@ public class CreditCard extends PaymentCard {
     //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     // }
     
-    public void notify() {
+    public void notifyUser() {
         if (getAmountOwed() > 0.5*getLimit()){
             System.out.println("You exceeded the 50% of the limit");
         }
     }
 
     public void payCard(int amount) {
-        this.amountOwed =- amountOwed;
+        this.amountOwed =- amount;
     }
 
 

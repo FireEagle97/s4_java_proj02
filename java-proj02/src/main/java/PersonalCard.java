@@ -11,16 +11,16 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
 public class PersonalCard extends Card {
-    private Date expiryDate;
+    private ExpiryDate expiryDate;
     private String description; // ex: Driver's license, business card, medicare
 
-    public PersonalCard(String cardHolderName, String cardNumber, Date expiryDate, String description) {
+    public PersonalCard(String cardHolderName, String cardNumber,int expiryYear, int expiryMonth, String description) {
         super(cardHolderName, cardNumber);
-        this.expiryDate = expiryDate;
+        this.expiryDate = new ExpiryDate(expiryYear, expiryMonth);
         this.description = description;
     }
 
-    public Date getExpiryDate() {
+    public ExpiryDate getExpiryDate() {
         return this.expiryDate;
     }
 

@@ -9,17 +9,17 @@
  * @author 1811257
  */
 import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.util.Date;
 public class PaymentCard extends Card {
     private String securityCode;
     private int limit;
-    private Date expiryDate;
+    private ExpiryDate expiryDate;
 
-    public PaymentCard(String securityCode, int limit, Date expiryDate, String cardHolderName, String cardNumber) {
+    public PaymentCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
         super(cardHolderName, cardNumber);
         this.securityCode = securityCode;
         this.limit = limit;
-        this.expiryDate = expiryDate;
+        this.expiryDate = new ExpiryDate(expiryYear,expiryMonth);
     }
 
     public String getSecurityCode() {
@@ -34,7 +34,7 @@ public class PaymentCard extends Card {
         this.limit = newLimit;
     }
 
-    public Date getExpiryDate() {
+    public ExpiryDate getExpiryDate() {
         return this.expiryDate;
     }
     
