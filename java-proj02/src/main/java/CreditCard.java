@@ -21,25 +21,16 @@ public class CreditCard extends PaymentCard {
         super(securityCode, limit,expiryMonth, expiryYear, cardHolderName, cardNumber);
     }
 
-    
-    // public boolean checkAvailableFunds(int amount) {
-    //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    // }
-
-      
-    // public boolean withdraw(int amount) {
-    //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    // }
-    
     public void notifyUser() {
         if (getAmountOwed() > 0.5*getLimit()){
             System.out.println("You exceeded the 50% of the limit");
         }
     }
 
-    public void payCard(int amount) {
+    public void payBalance(int amount) {
         this.amountOwed =- amount;
     }
+
 
 
     public int getAmountOwed() {

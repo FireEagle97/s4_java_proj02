@@ -24,6 +24,7 @@ public class Note {
     public String getNoteBody() {
         return this.noteBody;
     }
+
     @Override
     public boolean equals(Object note) {
         if (!(note instanceof Note)) {

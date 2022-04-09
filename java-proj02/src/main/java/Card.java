@@ -25,6 +25,6 @@ public class Card {
     public String getCardNumber() {
         return this.cardNumber;
     }
-  
+
     
 }

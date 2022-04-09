@@ -40,7 +40,7 @@ public class PaymentCard extends Card {
     
     @Override
     public boolean equals(Object card){
-        if (!(card instanceof PaymentCard)){
+        if (!(card instanceof PaymentCard)) {
             System.out.println("not equal type");
             return false;
         }
