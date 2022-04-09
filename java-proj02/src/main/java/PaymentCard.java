@@ -8,8 +8,6 @@
  *
  * @author 1811257
  */
-import java.text.SimpleDateFormat;
-//import java.util.Date;
 public class PaymentCard extends Card {
     private String securityCode;
     private int limit;
