@@ -70,11 +70,7 @@ public class EWallet {
     }
 
     public void deleteCard(String cardNumberInput) {
-        for (int i = 0; i < this.cardList.size(); i++) {
-            if (this.cardList.get(i).getCardNumber().equals(cardNumberInput)) {
-                this.cardList.remove(i);
-            }
-        }
+        this.cardList.remove(findCardByNumber(cardNumberInput));
     }
 
 

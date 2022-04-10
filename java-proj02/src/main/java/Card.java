@@ -10,7 +10,7 @@
  */
 public class Card {
 
-    private String cardHolderName;
+    private final String cardHolderName;
     private String cardNumber;
 
     public Card(String cardHolderName, String cardNumber){
