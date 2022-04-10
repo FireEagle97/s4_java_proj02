@@ -14,9 +14,11 @@
 public class CreditCard extends PaymentCard {
 
     private int amountOwed;
+    private String message;
     
     public CreditCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
         super(securityCode, limit,expiryMonth, expiryYear, cardHolderName, cardNumber);
+        this.message = "You exceeded the 50% of the limit";
     }
 
     
@@ -29,10 +31,9 @@ public class CreditCard extends PaymentCard {
     //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     // }
     
-    public void notifyUser() {
-        if (getAmountOwed() > 0.5*getLimit()){
-            System.out.println("You exceeded the 50% of the limit");
-        }
+    public String notifyUser() {
+            return this.message;
+        
     }
 
     public void payCard(int amount) {
