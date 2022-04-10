@@ -25,10 +25,7 @@ public class TestAkshan {
         for (Card x : wallet.getCardList()) {
             System.out.println(x);
         }
-        wallet.deleteCard("9881234");
-        for (Card x : wallet.getCardList()) {
-            System.out.println(x);
-        }
+        wallet.makePayment("123241451", 5);
                    
     }
 }

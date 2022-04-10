@@ -19,6 +19,7 @@ public class CreditCard extends PaymentCard {
     
     public CreditCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
         super(securityCode, limit,expiryMonth, expiryYear, cardHolderName, cardNumber);
+
     }
 
     public void notifyUser() {

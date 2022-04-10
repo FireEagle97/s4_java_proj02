@@ -77,13 +77,28 @@ public class EWallet {
         }
     }
 
-    public void makePayment(int index, int amount) {
-        //use polymorphism instead; TODO change later
-        if (this.cardList.get(index) instanceof CreditCard) {
-            ((CreditCard) this.cardList.get(index)).payBalance(index);
-        } else {
-            throw  new IllegalArgumentException("not a credit card");
+
+    public Card findCardByNumber(String cardNumberInput) {
+        for (int i = 0; i < this.cardList.size(); i++) {
+            if (this.cardList.get(i).getCardNumber().equals(cardNumberInput)) {
+                return this.cardList.get(i);
+            }
         }
+        return null;
+    }
+
+    public void makePayment(String CardNumber, int amount) {
+        Card selectedCard = findCardByNumber(CardNumber);
+
+        if (selectedCard == null) {
+            throw new IllegalArgumentException("Cannot find card");
+        }
+        //check if a card is a credit card by comparing to a random made-up credit card
+        if (!selectedCard.equals(new CreditCard("000", 0, 1, 2000, selectedCard.getCardHolderName(), selectedCard.getCardNumber()))) {
+            throw new IllegalArgumentException("Not a credit card");
+        }
+
+        ((CreditCard)selectedCard).payBalance(amount);
     }
 
 
