@@ -2,14 +2,18 @@ package ewallet.java.proj02;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 
 /**
@@ -22,22 +26,62 @@ public class App extends Application {
         var javaVersion = SystemInfo.javaVersion();
         var javafxVersion = SystemInfo.javafxVersion();
 
-//        var label = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
         GridPane gpWalletView = new GridPane();
+        gpWalletView.getColumnConstraints().add(new ColumnConstraints(500));
+        gpWalletView.getColumnConstraints().add(new ColumnConstraints(300));
+        gpWalletView.getRowConstraints().addAll(new RowConstraints(300), new RowConstraints(500), new RowConstraints(50));
+        //CARDS PANE
+        VBox vbCardsPanel = new VBox();
+        Text tExpMonth = new Text("EXP Month");
+        Text tExpDayInput = new Text("EXP Day");
+        Text tExpYearInput = new Text("EXP Year");
+        Text tLimit = new Text("Limit (credit) / Available Funds (debit)");
+        TextField tfExpMonth = new TextField();
+        TextField tfExpDay = new TextField();
+        TextField tfExpYear = new TextField();
+        ComboBox cbCardDropdown = new ComboBox();
+
+
+        //NOTES PANE
         VBox vbNotesPanel = new VBox();
-        Text tMonthInputLabel = new Text("Month");
-        Text tDayInputLabel = new Text("Day");
-        Text tYearInputLabel = new Text("Year");
-        TextField tfMonthInput = new TextField();
-        TextField tfDayInput = new TextField();
-        TextField tfYearInput = new TextField();
+        Text tMonthInput = new Text("Month");
+        Text tDayInput = new Text("Day");
+        Text tYearInput = new Text("Year");
+        TextField tfMonth = new TextField();
+        TextField tfDay = new TextField();
+        TextField tfYear = new TextField();
         ComboBox cbNoteDropdown = new ComboBox();
-        Text noteDescription = new Text();
-        vbNotesPanel.getChildren().addAll(new Text("My Notes"), cbNoteDropdown, tMonthInputLabel, tfMonthInput, tDayInputLabel, tfDayInput, tYearInputLabel, tfYearInput);
-        gpWalletView.add(vbNotesPanel, 0, 1);
+        Label noteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
+
+        //PROFILE PICTURE HOLDER
+        ImageView profilePictureView = new ImageView();
+        profilePictureView.setFitHeight(300);
+        profilePictureView.setFitWidth(300);
+        FileChooser picFileChooser = new FileChooser();
+        picFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.bmp"));
+        picFileChooser.setTitle("Choose Akshan Picture:");
+        Button btnChooseFile = new Button("chooseFile");
+        btnChooseFile.setOnAction(e -> {
+            File walletPicture = picFileChooser.showOpenDialog(stage);
+            if (walletPicture != null) {
+                System.out.println(walletPicture.getAbsolutePath());
+                profilePictureView.setImage(new Image(walletPicture.getAbsolutePath()));
+                profilePictureView.scaleXProperty();
+                profilePictureView.scaleYProperty();
+            }
+        });
 
 
-        var scene = new Scene(gpWalletView, 640, 480);
+
+        noteDescription.setWrapText(true);
+        vbNotesPanel.getChildren().addAll(new Text("My Notes"), cbNoteDropdown, noteDescription, tMonthInput, tfMonth,
+                tDayInput, tfDay, tYearInput, tfYear);
+        gpWalletView.add(vbNotesPanel, 1, 1);
+        gpWalletView.add(new Text("tttt"), 0, 1);
+        gpWalletView.add(new VBox(profilePictureView, btnChooseFile), 0 , 0);
+
+
+        var scene = new Scene(gpWalletView, 800, 600);
 
 
         stage.setScene(scene);
