@@ -10,7 +10,7 @@
  */
 public class Card {
 
-    private final String cardHolderName;
+    private String cardHolderName;
     private String cardNumber;
 
     public Card(String cardHolderName, String cardNumber){
@@ -26,5 +26,10 @@ public class Card {
         return this.cardNumber;
     }
 
+    @Override
+    public String toString(){
+        return "the card holder is " + this.cardHolderName + " and the card number is " + this.cardNumber;
+    }
+  
     
 }

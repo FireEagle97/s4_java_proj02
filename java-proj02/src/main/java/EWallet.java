@@ -36,12 +36,12 @@ public class EWallet {
         for(Note note: noteList){
             System.out.println(note);
         }
-    }
+        }
     
     public void addNote(Note newNote){
         if (noteList.size() > 10){
             throw new IllegalArgumentException("number of notes exceeds the limit");
-        }
+        } 
         noteList.add(newNote);
     }
 
@@ -53,9 +53,6 @@ public class EWallet {
         }
     }
 
-    public void deleteNote(int index){
-        this.noteList.remove(index);
-    }
     
     public void addCard(Card newCard) {
         if (this.cardList.size() >= 10) {
@@ -64,39 +61,18 @@ public class EWallet {
         this.cardList.add(newCard);
     }
 
-
     public void deleteCard(int index) {
         this.cardList.remove(index);
     }
 
-    public void deleteCard(String cardNumberInput) {
-        this.cardList.remove(findCardByNumber(cardNumberInput));
-    }
-
-
-    public Card findCardByNumber(String cardNumberInput) {
-        for (int i = 0; i < this.cardList.size(); i++) {
-            if (this.cardList.get(i).getCardNumber().equals(cardNumberInput)) {
-                return this.cardList.get(i);
-            }
+    public void makePayment(int index, int amount) {
+        //use polymorphism instead; TODO change later
+        if (this.cardList.get(index) instanceof CreditCard) {
+            ((CreditCard) this.cardList.get(index)).payCard(index);
+        } else {
+            throw  new IllegalArgumentException("not a credit card");
         }
-        return null;
     }
-
-    public void makePayment(String CardNumber, int amount) {
-        Card selectedCard = findCardByNumber(CardNumber);
-
-        if (selectedCard == null) {
-            throw new IllegalArgumentException("Cannot find card");
-        }
-        //check if a card is a credit card by comparing to a random made-up credit card
-        if (!selectedCard.equals(new CreditCard("000", 0, 1, 2000, selectedCard.getCardHolderName(), selectedCard.getCardNumber()))) {
-            throw new IllegalArgumentException("Not a credit card");
-        }
-
-        ((CreditCard)selectedCard).payBalance(amount);
-    }
-
 
 
     

@@ -1,6 +1,4 @@
 
-import java.util.Date;
-
 //import javax.naming.LimitExceededException;
 
 /*
@@ -16,22 +14,31 @@ import java.util.Date;
 public class CreditCard extends PaymentCard {
 
     private int amountOwed;
+    private String message;
     
     public CreditCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
         super(securityCode, limit,expiryMonth, expiryYear, cardHolderName, cardNumber);
-
+        this.message = "You exceeded the 50% of the limit";
     }
 
-    public void notifyUser() {
-        if (getAmountOwed() > 0.5*getLimit()){
-            System.out.println("You exceeded the 50% of the limit");
-        }
+    
+    // public boolean checkAvailableFunds(int amount) {
+    //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // }
+
+      
+    // public boolean withdraw(int amount) {
+    //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // }
+    
+    public String notifyUser() {
+            return this.message;
+        
     }
 
-    public void payBalance(int amount) {
+    public void payCard(int amount) {
         this.amountOwed =- amount;
     }
-
 
 
     public int getAmountOwed() {

@@ -33,10 +33,10 @@ public class Date {
     @Override
     public String toString() {
         if(this.day == 0){
-            return "month=" + month + ", year=" + year;
+            return month + "/" + year;
         }
       
-        return "month=" + month + ", year=" + year + "day=" + day;
+        return month + "/" + year + "/" + day;
         
             
     }

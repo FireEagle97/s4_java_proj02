@@ -36,9 +36,12 @@ public class PersonalCard extends Card {
         return true;
         
     }
-     @Override
+    @Override
     public String toString() {
-        return "cardHolderName" + this.getCardHolderName() + "cardNumber" + this.getCardNumber()+ "expiryDate=" + expiryDate + ", description=" + description;
+        return "cardHolderName: " + this.getCardHolderName() + "\n"
+                + "cardNumber: " + this.getCardNumber()+ "\n"
+                + "expiryDate: " + expiryDate + "\n"
+                +"description: " + description;
     }
 
 }

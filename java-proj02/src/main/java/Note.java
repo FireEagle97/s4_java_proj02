@@ -12,8 +12,8 @@ public class Note {
     private Date dateOfCreation;
     private String noteBody;
 
-    public Note(int month,int year, String noteBody) {
-        this.dateOfCreation = new Date(year,month);
+    public Note(int day,int month,int year, String noteBody) {
+        this.dateOfCreation = new Date(day,month,year);
         this.noteBody = noteBody;
     }
     
