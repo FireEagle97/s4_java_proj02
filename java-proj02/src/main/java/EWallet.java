@@ -33,15 +33,15 @@ public class EWallet {
     }
 
     public void listNotes(){
-        if (noteList.size() > 10){
-            throw new IllegalArgumentException("number of notes exceeds the limit");
-        } 
         for(Note note: noteList){
             System.out.println(note);
         }
         }
     
     public void addNote(Note newNote){
+        if (noteList.size() > 10){
+            throw new IllegalArgumentException("number of notes exceeds the limit");
+        } 
         noteList.add(newNote);
     }
 

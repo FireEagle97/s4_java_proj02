@@ -8,9 +8,7 @@
  *
  * @author 1811257
  */
-import java.text.SimpleDateFormat;
-//import java.util.Date;
-public class PaymentCard extends Card {
+public abstract class PaymentCard extends Card {
     private String securityCode;
     private int limit;
     private Date expiryDate;
@@ -50,7 +48,11 @@ public class PaymentCard extends Card {
 
     @Override
     public String toString() {
-        return "cardHolderName=" + this.getCardHolderName()+"cardNumber=" + this.getCardNumber() +"securityCode=" + securityCode + ", limit=" + limit + ", expiryDate=" + expiryDate;
+        return "cardHolderName: " + this.getCardHolderName() + "\n"
+                +"cardNumber: " + this.getCardNumber() + "\n"
+                +"securityCode: " + securityCode + "\n"
+                + "limit: " + limit + "\n"
+                + "expiryDate: " + expiryDate;
     }
 
 }
