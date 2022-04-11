@@ -30,5 +30,15 @@ public class DebitCard extends PaymentCard {
     public void addCash(int amount){
         this.setLimit(this.getLimit()+ amount);
     }
-    
+
+    @Override
+    public boolean equals(Object otherCard) {
+        if (!(otherCard instanceof DebitCard)) {
+            return false;
+        }
+        if (!((DebitCard) otherCard).getCardNumber().equals(this.getCardNumber())) {
+            return false;
+        }
+        return true;
+    }
 }
