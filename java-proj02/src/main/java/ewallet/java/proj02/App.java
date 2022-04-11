@@ -33,14 +33,15 @@ public class App extends Application {
         //CARDS PANE
         VBox vbCardsPanel = new VBox();
         Text tExpMonth = new Text("EXP Month");
-        Text tExpDayInput = new Text("EXP Day");
-        Text tExpYearInput = new Text("EXP Year");
+        Text tExpDay = new Text("EXP Day");
+        Text tExpYear = new Text("EXP Year");
         Text tLimit = new Text("Limit (credit) / Available Funds (debit)");
         TextField tfExpMonth = new TextField();
         TextField tfExpDay = new TextField();
         TextField tfExpYear = new TextField();
+        TextField tfLimit = new TextField();
         ComboBox cbCardDropdown = new ComboBox();
-
+        Label cardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
 
         //NOTES PANE
         VBox vbNotesPanel = new VBox();
@@ -76,11 +77,12 @@ public class App extends Application {
         noteDescription.setWrapText(true);
         vbNotesPanel.getChildren().addAll(new Text("My Notes"), cbNoteDropdown, noteDescription, tMonthInput, tfMonth,
                 tDayInput, tfDay, tYearInput, tfYear);
+        vbCardsPanel.getChildren().addAll(new Text("My Cards"), cbCardDropdown, cardDescription, tExpMonth, tfExpMonth,
+                tExpDay, tfExpDay, tExpYear, tfExpYear, tLimit, tfLimit);
+        gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);
-        gpWalletView.add(new Text("tttt"), 0, 1);
         gpWalletView.add(new VBox(profilePictureView, btnChooseFile), 0 , 0);
-
-
+//        tfDay.applyCss("fx-backgroundColor");
         var scene = new Scene(gpWalletView, 800, 600);
 
 
