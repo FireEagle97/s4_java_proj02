@@ -16,6 +16,7 @@ public class TestAkshan {
         notifier.attach(view);
         //card3.setAmountOwed(1500);
         notifier.notifyUpdate(card3);
+
 //        Card card1 = new DebitCard("001", 2000, 2022,04, "Dany Makhoul", "123456");
 //        //Card card3 = new CreditCard("002", 3000,2022,07,"Kyle veloso","245456");
 //        Card card2 = new PersonalCard("Kyle veloso", "9881234", 2025,03, "Healthcare card");

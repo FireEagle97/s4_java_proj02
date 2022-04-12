@@ -1,5 +1,6 @@
 package ewallet.java.proj02;
 
+import ewallet.java.proj02.javafx.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,33 +27,37 @@ public class App extends Application {
         var javaVersion = SystemInfo.javaVersion();
         var javafxVersion = SystemInfo.javafxVersion();
 
+
         GridPane gpWalletView = new GridPane();
+        Scene mainScene = new Scene(gpWalletView, 800, 600);
+        NoteWindow noteCreationScene = new NoteWindow(stage, mainScene);
+        CardWindow cardCreationScene = new CardWindow(stage, mainScene);
+
         gpWalletView.getColumnConstraints().add(new ColumnConstraints(500));
         gpWalletView.getColumnConstraints().add(new ColumnConstraints(300));
         gpWalletView.getRowConstraints().addAll(new RowConstraints(300), new RowConstraints(500), new RowConstraints(50));
+
         //CARDS PANE
         VBox vbCardsPanel = new VBox();
-        Text tExpMonth = new Text("EXP Month");
-        Text tExpDay = new Text("EXP Day");
-        Text tExpYear = new Text("EXP Year");
-        Text tLimit = new Text("Limit (credit) / Available Funds (debit)");
-        TextField tfExpMonth = new TextField();
-        TextField tfExpDay = new TextField();
-        TextField tfExpYear = new TextField();
-        TextField tfLimit = new TextField();
         ComboBox cbCardDropdown = new ComboBox();
         Label cardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
 
+        Button btnAddCard = new Button("Add new Card");
+        btnAddCard.setOnAction(e -> {
+            stage.setScene(cardCreationScene.getScene());
+        });
+
+
         //NOTES PANE
         VBox vbNotesPanel = new VBox();
-        Text tMonthInput = new Text("Month");
-        Text tDayInput = new Text("Day");
-        Text tYearInput = new Text("Year");
-        TextField tfMonth = new TextField();
-        TextField tfDay = new TextField();
-        TextField tfYear = new TextField();
+
         ComboBox cbNoteDropdown = new ComboBox();
         Label noteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
+        noteDescription.setWrapText(true);
+        Button btnAddNote = new Button("Add Note");
+        btnAddNote.setOnAction(e -> {
+            stage.setScene(noteCreationScene.getScene());
+        });
 
         //PROFILE PICTURE HOLDER
         ImageView profilePictureView = new ImageView();
@@ -73,20 +78,12 @@ public class App extends Application {
         });
 
 
-
-        noteDescription.setWrapText(true);
-        vbNotesPanel.getChildren().addAll(new Text("My Notes"), cbNoteDropdown, noteDescription, tMonthInput, tfMonth,
-                tDayInput, tfDay, tYearInput, tfYear);
-        vbCardsPanel.getChildren().addAll(new Text("My Cards"), cbCardDropdown, cardDescription, tExpMonth, tfExpMonth,
-                tExpDay, tfExpDay, tExpYear, tfExpYear, tLimit, tfLimit);
+        vbNotesPanel.getChildren().addAll(cbNoteDropdown, noteDescription, btnAddNote);
+        vbCardsPanel.getChildren().addAll(cbCardDropdown, cardDescription, btnAddCard);
         gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);
         gpWalletView.add(new VBox(profilePictureView, btnChooseFile), 0 , 0);
-//        tfDay.applyCss("fx-backgroundColor");
-        var scene = new Scene(gpWalletView, 800, 600);
-
-
-        stage.setScene(scene);
+        stage.setScene(mainScene);
         stage.show();
 
 
