@@ -1,5 +1,6 @@
 package ewallet.java.proj02.javafx;
 
+import ewallet.java.proj02.WalletController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,8 +18,18 @@ public class CardWindow {
     private Scene mainScene;
     private VBox vbCardPanel;
 
+    private TextField tfExpMonth;
+    private TextField tfExpYear;
+    private TextField tfLimit;
+    private TextField tfCardDescription;
 
-    public CardWindow(Stage mainStage, Scene mainScene) {
+    private RadioButton rbDebit;
+    private RadioButton rbCredit;
+    private RadioButton rbPersonal;
+
+    private WalletController walletC;
+
+    public CardWindow(Stage mainStage, Scene mainScene, WalletController walletC) {
         mainStage.setTitle("Create a new Card");
 
         this.vbCardPanel = new VBox();
@@ -26,53 +37,45 @@ public class CardWindow {
         Text tExpYear = new Text("EXP Year");
         Text tLimit = new Text("Limit (credit) / Available Funds (debit)");
         Text tCardDescription = new Text("description eg. Driver's Licence, Health card ...");
-
-
-        TextField tfExpMonth = new TextField();
-        TextField tfExpYear = new TextField();
-        TextField tfLimit = new TextField();
-        TextField tfCardDescription = new TextField();
-
         Button btnAdd = new Button("Add Card");
         Button btnBack = new Button("Cancel");
 
-        RadioButton rbDebit = new RadioButton("Debit Card");
-        RadioButton rbCredit = new RadioButton("Credit Card");
-        RadioButton rbPersonal = new RadioButton("Personal Card");
+
+        this.tfExpMonth = new TextField();
+        this.tfExpYear = new TextField();
+        this.tfLimit = new TextField();
+        this.tfCardDescription = new TextField();
+
+        this.rbDebit = new RadioButton("Debit Card");
+        this.rbCredit = new RadioButton("Credit Card");
+        this.rbPersonal = new RadioButton("Personal Card");
+
         ToggleGroup radioButtons = new ToggleGroup();
         HBox hbButtonsPane = new HBox();
         hbButtonsPane.setAlignment(Pos.CENTER);
         hbButtonsPane.setSpacing(5.0);
-        rbDebit.setToggleGroup(radioButtons);
-        rbCredit.setToggleGroup(radioButtons);
-        rbPersonal.setToggleGroup(radioButtons);
+        this.rbDebit.setToggleGroup(radioButtons);
+        this.rbCredit.setToggleGroup(radioButtons);
+        this.rbPersonal.setToggleGroup(radioButtons);
         rbDebit.setSelected(true);
-        hbButtonsPane.getChildren().addAll(rbDebit, rbCredit, rbPersonal);
+        hbButtonsPane.getChildren().addAll(this.rbDebit, this.rbCredit, this.rbPersonal);
 
-
-        this.vbCardPanel.getChildren().addAll(hbButtonsPane, tExpMonth, tfExpMonth, tExpYear, tfExpYear,
-                tCardDescription, tfCardDescription,  tLimit, tfLimit, btnAdd, btnBack);
+        this.vbCardPanel.getChildren().addAll(hbButtonsPane, tExpMonth, this.tfExpMonth, tExpYear, this.tfExpYear,
+                tCardDescription, this.tfCardDescription,  tLimit, this.tfLimit, btnAdd, btnBack);
+        tCardDescription.setVisible(false);
+        this.tfCardDescription.setVisible(false);
         this.scene = new Scene(this.vbCardPanel, 400, 300);
         this.mainScene = mainScene;
+        this.walletC = walletC;
 
         rbPersonal.setOnAction(evt -> {
-            tCardDescription.setVisible(rbPersonal.isSelected());
-            tfCardDescription.setVisible(rbPersonal.isSelected());
-            tLimit.setVisible(!rbPersonal.isSelected());
-            tfLimit.setVisible(!rbPersonal.isSelected());
-
+            updateCardInputFieldDisplay(tCardDescription, tLimit);
         });
         rbDebit.setOnAction(evt -> {
-            tCardDescription.setVisible(rbPersonal.isSelected());
-            tfCardDescription.setVisible(rbPersonal.isSelected());
-            tLimit.setVisible(!rbPersonal.isSelected());
-            tfLimit.setVisible(!rbPersonal.isSelected());
+            updateCardInputFieldDisplay(tCardDescription, tLimit);
         });
         rbCredit.setOnAction(evt -> {
-            tCardDescription.setVisible(rbPersonal.isSelected());
-            tfCardDescription.setVisible(rbPersonal.isSelected());
-            tLimit.setVisible(!rbPersonal.isSelected());
-            tfLimit.setVisible(!rbPersonal.isSelected());
+            updateCardInputFieldDisplay(tCardDescription, tLimit);
         });
 
         btnBack.setOnAction(evt -> {
@@ -82,23 +85,50 @@ public class CardWindow {
 
         //TODO get the controller to retrieve the input values and add functionality to tell model to create card.
         btnAdd.setOnAction(evt -> {
+            this.walletC.handleCardCreationInput(this);
             mainStage.setScene(this.mainScene);
-            if (rbCredit.isSelected()) {
-                System.out.println("akshan credit");
-            } else if (rbDebit.isSelected()) {
-                System.out.println("akshan debit");
-            } else {
-                System.out.println("Personal Card");
-            }
         });
 
 
+    }
+
+    private void updateCardInputFieldDisplay(Text tCardDescription, Text tLimit) {
+        tCardDescription.setVisible(rbPersonal.isSelected());
+        tfCardDescription.setVisible(rbPersonal.isSelected());
+        tLimit.setVisible(!rbPersonal.isSelected());
+        tfLimit.setVisible(!rbPersonal.isSelected());
     }
 
     public Scene getScene() {
         return this.scene;
     }
 
+    public String getTfExpYear() {
+        return this.tfExpYear.getText();
+    }
 
+    public String getTfExpMonth() {
+        return this.tfExpMonth.getText();
+    }
+
+    public String getTfLimit() {
+        return this.tfLimit.getText();
+    }
+
+    public String getTfCardDescription() {
+        return this.tfCardDescription.getText();
+    }
+
+    public boolean rbDebitIsSelected() {
+        return this.rbDebit.isSelected();
+    }
+
+    public boolean rbCreditIsSelected() {
+        return this.rbCredit.isSelected();
+    }
+
+    public boolean rbPersonalIsSelected() {
+        return this.rbPersonal.isSelected();
+    }
 }
 

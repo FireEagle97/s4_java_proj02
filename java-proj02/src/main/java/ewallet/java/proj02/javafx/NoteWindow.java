@@ -50,7 +50,7 @@ public class NoteWindow {
         btnAdd.setOnAction(evt -> {
             mainStage.setTitle("My E-wallet 2022");
             mainStage.setScene(this.mainScene);
-            this.walletC.handleNoteCreationInput(evt, this);
+            this.walletC.handleNoteCreationInput(this);
         });
 
 

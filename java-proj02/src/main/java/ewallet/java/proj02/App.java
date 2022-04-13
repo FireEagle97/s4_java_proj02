@@ -2,9 +2,6 @@ package ewallet.java.proj02;
 
 import ewallet.java.proj02.javafx.*;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -17,7 +14,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.ArrayList;
 
 
 /**
@@ -38,7 +34,7 @@ public class App extends Application {
 
         WalletController walletC = new WalletController(cbCardDropdown, cbNoteDropdown);
         NoteWindow noteCreationScene = new NoteWindow(stage, mainScene, walletC);
-        CardWindow cardCreationScene = new CardWindow(stage, mainScene);
+        CardWindow cardCreationScene = new CardWindow(stage, mainScene, walletC);
 
         gpWalletView.getColumnConstraints().add(new ColumnConstraints(500));
         gpWalletView.getColumnConstraints().add(new ColumnConstraints(300));
@@ -46,10 +42,7 @@ public class App extends Application {
 
         //CARDS PANE
         VBox vbCardsPanel = new VBox();
-
-
-        Label cardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
-
+        Label cardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet,");
         Button btnAddCard = new Button("Add new Card");
         btnAddCard.setOnAction(e -> {
             stage.setScene(cardCreationScene.getScene());
@@ -72,7 +65,7 @@ public class App extends Application {
         btnAddNote.setOnAction(evt -> stage.setScene(noteCreationScene.getScene()));
 
         cbNoteDropdown.setOnAction(evt -> {
-            walletC.handleViewNote((ActionEvent) evt, lblNoteDescription);
+            walletC.handleViewNote(lblNoteDescription);
         });
 
         //PROFILE PICTURE HOLDER
