@@ -2,6 +2,8 @@ package ewallet.java.proj02;
 
 import ewallet.java.proj02.javafx.*;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -13,6 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 /**
@@ -28,7 +31,10 @@ public class App extends Application {
 
         GridPane gpWalletView = new GridPane();
         Scene mainScene = new Scene(gpWalletView, 800, 600);
-        WalletController walletC = new WalletController();
+        ComboBox cbCardDropdown = new ComboBox();
+        ComboBox cbNoteDropdown = new ComboBox();
+
+        WalletController walletC = new WalletController(cbCardDropdown, cbNoteDropdown);
         NoteWindow noteCreationScene = new NoteWindow(stage, mainScene, walletC);
         CardWindow cardCreationScene = new CardWindow(stage, mainScene);
 
@@ -38,7 +44,8 @@ public class App extends Application {
 
         //CARDS PANE
         VBox vbCardsPanel = new VBox();
-        ComboBox cbCardDropdown = new ComboBox();
+
+
         Label cardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
 
         Button btnAddCard = new Button("Add new Card");
@@ -50,7 +57,6 @@ public class App extends Application {
         //NOTES PANE
         VBox vbNotesPanel = new VBox();
 
-        ComboBox cbNoteDropdown = new ComboBox();
 
         Label noteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
         noteDescription.setWrapText(true);
