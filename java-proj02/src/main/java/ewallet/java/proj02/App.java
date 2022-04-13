@@ -6,11 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -30,7 +28,8 @@ public class App extends Application {
 
         GridPane gpWalletView = new GridPane();
         Scene mainScene = new Scene(gpWalletView, 800, 600);
-        NoteWindow noteCreationScene = new NoteWindow(stage, mainScene);
+        WalletController walletC = new WalletController();
+        NoteWindow noteCreationScene = new NoteWindow(stage, mainScene, walletC);
         CardWindow cardCreationScene = new CardWindow(stage, mainScene);
 
         gpWalletView.getColumnConstraints().add(new ColumnConstraints(500));
@@ -52,6 +51,7 @@ public class App extends Application {
         VBox vbNotesPanel = new VBox();
 
         ComboBox cbNoteDropdown = new ComboBox();
+
         Label noteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
         noteDescription.setWrapText(true);
         Button btnAddNote = new Button("Add Note");

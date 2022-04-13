@@ -1,4 +1,4 @@
-
+package ewallet.java.proj02;
 //import javax.naming.LimitExceededException;
 
 /*

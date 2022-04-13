@@ -13,8 +13,9 @@ public class CardWindow {
     private Scene mainScene;
     private VBox vbCardPanel;
 
+
     public CardWindow(Stage mainStage, Scene mainScene) {
-        mainStage.setTitle("Create a new Note");
+        mainStage.setTitle("Create a new Card");
 
         this.vbCardPanel = new VBox();
         Text tExpMonth = new Text("EXP Month");
@@ -25,7 +26,7 @@ public class CardWindow {
         TextField tfExpDay = new TextField();
         TextField tfExpYear = new TextField();
         TextField tfLimit = new TextField();
-        Button btnAdd = new Button("Add Note");
+        Button btnAdd = new Button("Add Card");
         Button btnBack = new Button("Cancel");
 
 
@@ -34,14 +35,14 @@ public class CardWindow {
         this.mainScene = mainScene;
 
 
-        btnBack.setOnAction(e -> {
+        btnBack.setOnAction(evt -> {
             mainStage.setTitle("My E-wallet 2022");
-            mainStage.setScene(mainScene);
+            mainStage.setScene(this.mainScene);
         });
 
         //TODO get the controller to retrieve the input values and add functionality to tell model to create card.
-        btnAdd.setOnAction(e -> {
-            mainStage.setScene(mainScene);
+        btnAdd.setOnAction(evt -> {
+            mainStage.setScene(this.mainScene);
         });
 
 
@@ -50,5 +51,7 @@ public class CardWindow {
     public Scene getScene() {
         return this.scene;
     }
+
+
 }
 
