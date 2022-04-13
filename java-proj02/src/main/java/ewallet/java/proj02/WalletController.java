@@ -46,12 +46,11 @@ public class WalletController {
     }
 
     private void updateNoteDropdownList() {
-        ArrayList<String> noteDays = new ArrayList<String>();
+        ArrayList<String> noteIds = new ArrayList<String>();
         for (Note note : this.wallet.getNoteList()) {
-            Date creationDate = note.getDateOfCreation();
-            noteDays.add(creationDate.getMonth() + "-" + creationDate.getDay() + "-" + creationDate.getYear());
+            noteIds.add(note.getNoteId());
         }
-        ObservableList<String> notes = FXCollections.observableArrayList(noteDays);
+        ObservableList<String> notes = FXCollections.observableArrayList(noteIds);
         cbNotes.getItems().clear();
         cbNotes.getItems().addAll(notes);
     }

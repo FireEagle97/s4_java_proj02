@@ -9,14 +9,23 @@ package ewallet.java.proj02;/*
  * @author 1811257
  */
 public class Note {
+    private String noteId;
     private Date dateOfCreation;
     private String noteBody;
+
+    public static int currentNoteIdIndex = 1;
 
     public Note(int day,int month,int year, String noteBody) {
         this.dateOfCreation = new Date(day,month,year);
         this.noteBody = noteBody;
+        this.noteId = this.dateOfCreation.toString() + "-" + String.format("%05d", currentNoteIdIndex);
+        Note.currentNoteIdIndex++;
     }
-    
+
+    public String getNoteId() {
+        return this.noteId;
+    }
+
     public Date getDateOfCreation() {
         return this.dateOfCreation;
     }
@@ -24,6 +33,8 @@ public class Note {
     public String getNoteBody() {
         return this.noteBody;
     }
+
+
 
     @Override
     public boolean equals(Object note) {
