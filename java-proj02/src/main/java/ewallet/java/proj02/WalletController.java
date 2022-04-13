@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
@@ -26,22 +28,31 @@ public class WalletController {
 
 
     public void handleNoteCreationInput(ActionEvent evt, NoteWindow noteCreationPane) {
-        System.out.println();
-        System.out.println(noteCreationPane.getDayInput());
-        System.out.println(noteCreationPane.getYearInput());
-        System.out.println(noteCreationPane.getNoteBodyInput());
         int month = Integer.parseInt(noteCreationPane.getMonthInput());
         int day = Integer.parseInt(noteCreationPane.getDayInput());
         int year = Integer.parseInt(noteCreationPane.getYearInput());
-        String body = noteCreationPane.getNoteBodyInput();
 
+        String body = noteCreationPane.getNoteBodyInput();
         this.wallet.addNote(new Note(day, month, year, body));
-        System.out.println("sova note success!");
         this.wallet.listNotes();
         updateNoteDropdownList();
+        //TODO Add functionality when the max threshhold is reached, display message
 
+    }
 
+    public void handleNoteDeletion(TextField tfNoteIdInput) {
+        this.wallet.deleteNote(tfNoteIdInput.getText());
+        updateNoteDropdownList();
+        //TODO Add functionality when an existing card could not be found, display message
+    }
 
+    public void handleViewNote(ActionEvent evt, Label lblNote) {
+
+        if (!this.cbNotes.getItems().isEmpty()) {
+            String selectedNoteId = this.cbNotes.getValue().toString();
+            Note selectedNote = wallet.getNoteList().get(wallet.findNoteById(selectedNoteId));
+            lblNote.setText(selectedNote.toString());
+        }
 
     }
 
@@ -51,7 +62,13 @@ public class WalletController {
             noteIds.add(note.getNoteId());
         }
         ObservableList<String> notes = FXCollections.observableArrayList(noteIds);
-        cbNotes.getItems().clear();
-        cbNotes.getItems().addAll(notes);
+        this.cbNotes.getItems().clear();
+        this.cbNotes.getItems().addAll(notes);
+        if (!notes.isEmpty()) {
+            cbNotes.setValue(notes.get(notes.size() - 1));
+        }
+
     }
+
+
 }

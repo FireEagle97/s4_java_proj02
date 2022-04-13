@@ -4,10 +4,12 @@ import ewallet.java.proj02.javafx.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -57,12 +59,20 @@ public class App extends Application {
         //NOTES PANE
         VBox vbNotesPanel = new VBox();
 
+        HBox hbNoteDeletionPane = new HBox();
+        Button btnDeleteNote = new Button("Delete Note");
+        TextField tfNoteIdInput = new TextField();
+        hbNoteDeletionPane.getChildren().addAll(tfNoteIdInput, btnDeleteNote);
+        tfNoteIdInput.setPromptText("Enter Note ID in list");
+        btnDeleteNote.setOnAction(e -> walletC.handleNoteDeletion(tfNoteIdInput));
 
-        Label noteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
-        noteDescription.setWrapText(true);
+        Label lblNoteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
+        lblNoteDescription.setWrapText(true);
         Button btnAddNote = new Button("Add Note");
-        btnAddNote.setOnAction(e -> {
-            stage.setScene(noteCreationScene.getScene());
+        btnAddNote.setOnAction(evt -> stage.setScene(noteCreationScene.getScene()));
+
+        cbNoteDropdown.setOnAction(evt -> {
+            walletC.handleViewNote((ActionEvent) evt, lblNoteDescription);
         });
 
         //PROFILE PICTURE HOLDER
@@ -76,15 +86,14 @@ public class App extends Application {
         btnChooseFile.setOnAction(e -> {
             File walletPicture = picFileChooser.showOpenDialog(stage);
             if (walletPicture != null) {
-                System.out.println(walletPicture.getAbsolutePath());
-                profilePictureView.setImage(new Image(walletPicture.getAbsolutePath()));
+                profilePictureView.setImage(new Image("File:///" + walletPicture.getAbsolutePath()));
                 profilePictureView.scaleXProperty();
                 profilePictureView.scaleYProperty();
             }
         });
 
 
-        vbNotesPanel.getChildren().addAll(cbNoteDropdown, noteDescription, btnAddNote);
+        vbNotesPanel.getChildren().addAll(cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane);
         vbCardsPanel.getChildren().addAll(cbCardDropdown, cardDescription, btnAddCard);
         gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);

@@ -18,7 +18,7 @@ public class Note {
     public Note(int day,int month,int year, String noteBody) {
         this.dateOfCreation = new Date(day,month,year);
         this.noteBody = noteBody;
-        this.noteId = this.dateOfCreation.toString() + "-" + String.format("%05d", currentNoteIdIndex);
+        this.noteId = String.format("%05d", currentNoteIdIndex);
         Note.currentNoteIdIndex++;
     }
 
