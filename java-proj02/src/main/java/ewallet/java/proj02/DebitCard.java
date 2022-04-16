@@ -14,16 +14,22 @@ public class DebitCard extends PaymentCard {
         super(securityCode, limit, expiryMonth, expiryYear, cardHolderName, cardNumber);
     }
 
-    
+    @Override
+    public boolean pay(int amount) {
+        System.out.println("paying with debit...");
+        if (!checkAvailableFunds(amount)) {
+            return false;
+        }
+        return withdraw(amount);
+    }
+
+
     public boolean checkAvailableFunds(int amount) {
         return (amount <= this.getLimit());
     }
 
     public boolean withdraw(int amount) {
-        if (this.getLimit() - amount < 0) {
-            return false;
-        }
-        setLimit(this.getLimit() - amount); //subtract from  bank balance, return the amount.
+        setLimit(this.getLimit() - amount); //subtract from  bank balance
         return true;
     }
     

@@ -28,6 +28,7 @@ public class App extends Application {
 
 
         GridPane gpWalletView = new GridPane();
+        gpWalletView.setStyle("-fx-backgroundColor: #ff0000");
         Scene mainScene = new Scene(gpWalletView, 800, 600);
         ComboBox cbCardDropdown = new ComboBox();
         ComboBox cbNoteDropdown = new ComboBox();
@@ -42,16 +43,20 @@ public class App extends Application {
 
         //CARDS PANE
         VBox vbCardsPanel = new VBox();
-        Label cardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet,");
+        Label lblCardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet,");
         Button btnAddCard = new Button("Add new Card");
         btnAddCard.setOnAction(e -> {
             stage.setScene(cardCreationScene.getScene());
         });
 
+        cbCardDropdown.setOnAction(evt -> {
+            walletC.handleViewCard(lblCardDescription);
+        });
+
 
         //NOTES PANE
         VBox vbNotesPanel = new VBox();
-
+        vbNotesPanel.applyCss();
         HBox hbNoteDeletionPane = new HBox();
         Button btnDeleteNote = new Button("Delete Note");
         TextField tfNoteIdInput = new TextField();
@@ -87,13 +92,12 @@ public class App extends Application {
 
 
         vbNotesPanel.getChildren().addAll(cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane);
-        vbCardsPanel.getChildren().addAll(cbCardDropdown, cardDescription, btnAddCard);
+        vbCardsPanel.getChildren().addAll(cbCardDropdown, lblCardDescription, btnAddCard);
         gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);
         gpWalletView.add(new VBox(profilePictureView, btnChooseFile), 0 , 0);
         stage.setScene(mainScene);
         stage.show();
-
 
     }
 

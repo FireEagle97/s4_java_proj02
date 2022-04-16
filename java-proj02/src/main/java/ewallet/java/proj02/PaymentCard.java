@@ -35,7 +35,9 @@ public abstract class PaymentCard extends Card {
     public Date getExpiryDate() {
         return this.expiryDate;
     }
-    
+
+    public abstract boolean pay(int amount);
+
     @Override
     public boolean equals(Object card){
         if (!(card instanceof PaymentCard)) {

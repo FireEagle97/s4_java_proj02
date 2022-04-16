@@ -21,23 +21,19 @@ public class CreditCard extends PaymentCard {
         this.message = "You exceeded the 50% of the limit";
     }
 
-    
-    // public boolean checkAvailableFunds(int amount) {
-    //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    // }
 
-      
-    // public boolean withdraw(int amount) {
-    //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    // }
-    
     public String notifyUser() {
             return this.message;
-        
     }
 
-    public void payCard(int amount) {
-        this.amountOwed =- amount;
+    @Override
+    public boolean pay(int amount) {
+        System.out.println("paying with credit...");
+        if (this.amountOwed + amount > this.getLimit()) {
+            return false;
+        }
+        this.amountOwed += amount;
+        return true;
     }
 
 
@@ -45,10 +41,6 @@ public class CreditCard extends PaymentCard {
         return amountOwed;
     }
 
-
-    public void setAmountOwed(int amountOwed) {
-        this.amountOwed = amountOwed;
-    }
 
 
 

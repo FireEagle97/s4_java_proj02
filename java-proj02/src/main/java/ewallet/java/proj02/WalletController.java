@@ -4,10 +4,8 @@ import ewallet.java.proj02.javafx.CardWindow;
 import ewallet.java.proj02.javafx.NoteWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
@@ -51,7 +49,7 @@ public class WalletController {
         for (Card x : this.wallet.getCardList()) {
             System.out.println(x);
         }
-
+        updateCardDropdownList();
     }
 
     public void handleNoteCreationInput(NoteWindow noteCreationPane) {
@@ -73,12 +71,36 @@ public class WalletController {
         //TODO Add functionality when an existing card could not be found, display message
     }
 
+    public void handleViewCard(Label lblCard) {
+
+        if (!this.cbCards.getItems().isEmpty()) {
+            String selectedCardNumber = this.cbCards.getValue().toString();
+            Card selectedCard = wallet.getCardList().get(wallet.findCardByNumber(selectedCardNumber));
+            lblCard.setText(selectedCard.toString());
+        }
+
+    }
+
     public void handleViewNote(Label lblNote) {
 
         if (!this.cbNotes.getItems().isEmpty()) {
             String selectedNoteId = this.cbNotes.getValue().toString();
             Note selectedNote = wallet.getNoteList().get(wallet.findNoteById(selectedNoteId));
             lblNote.setText(selectedNote.toString());
+        }
+
+    }
+
+    private void updateCardDropdownList() {
+        ArrayList<String> cardIds = new ArrayList<>();
+        for (Card card : this.wallet.getCardList()) {
+            cardIds.add(card.getCardNumber());
+        }
+        ObservableList<String> cards = FXCollections.observableArrayList(cardIds);
+        this.cbCards.getItems().clear();
+        this.cbCards.getItems().addAll(cards);
+        if (!cards.isEmpty()) {
+            cbCards.setValue(cards.get(cards.size() - 1));
         }
 
     }
