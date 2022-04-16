@@ -21,6 +21,7 @@ public class NoteWindow {
 
     public NoteWindow(Stage mainStage, Scene mainScene, WalletController walletC) {
         mainStage.setTitle("Create a new Note");
+
         this.vbNotesPanel = new VBox();
         this.tfMonth = new TextField();
         this.tfDay = new TextField();

@@ -47,4 +47,9 @@ public class DebitCard extends PaymentCard {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n" + "TYPE: DEBIT";
+    }
 }

@@ -28,7 +28,6 @@ public class WalletController {
     }
 
     public void handleCardCreationInput(CardWindow cardCreationPane) {
-        //TODO Add functionality to akshan combobox of cards
         //TODO verify actual card types created (radio buttons already tested)
         Random rng = new Random();
         int expMonth = Integer.parseInt(cardCreationPane.getTfExpMonth());

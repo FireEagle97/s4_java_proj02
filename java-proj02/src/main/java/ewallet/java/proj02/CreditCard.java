@@ -41,7 +41,8 @@ public class CreditCard extends PaymentCard {
         return amountOwed;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return super.toString() + "\n" + "TYPE: CREDIT";
+    }
 }
