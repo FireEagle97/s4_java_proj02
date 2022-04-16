@@ -82,14 +82,25 @@ public class App extends Application {
         //PAYMENT WINDOW
         VBox vbPaymentPanel = new VBox();
         TextField tfCardNumberInput = new TextField();
+        TextField tfPayCardAmount = new TextField();
+        TextField tfPayCash = new TextField();
+        TextField tfAddCash = new TextField();
+        tfPayCardAmount.setPromptText("Amount to pay ($): ");
+        tfPayCash.setPromptText("Amount to pay ($)");
+        tfAddCash.setPromptText("Amount to add ($): ");
         tfCardNumberInput.setPromptText("Enter Card Number");
-        Button btnPay = new Button("Pay");
+        Button btnCardPay = new Button("Pay with Card");
+        Button btnCashPay = new Button("Pay with Cash");
+        Button btnAddCash = new Button("Add Cash");
         Label lblCashDisplay = new Label("$69.00");
         lblCashDisplay.setStyle("-fx-text-fill: #007700; -fx-font-size: 300%;");
         Label lblError = new Label("<Warning text>");
         Label lblNotification = new Label("<Notification text eg. 50% limit reached>");
-        HBox hbPaymentBox = new HBox(new Label("Card #"), tfCardNumberInput, btnPay);
-        vbPaymentPanel.getChildren().addAll(lblCashDisplay, hbPaymentBox, lblError, lblNotification);
+        HBox hbCardPayment = new HBox(tfCardNumberInput, tfPayCardAmount, btnCardPay);
+        HBox hbCashPayment = new HBox(tfPayCash, btnCashPay);
+        HBox hbAddCashBox = new HBox(tfAddCash, btnAddCash);
+        vbPaymentPanel.getChildren().addAll(lblCashDisplay, hbAddCashBox, hbCardPayment, hbCashPayment, lblError, lblNotification);
+
 
         //PROFILE PICTURE HOLDER
         ImageView profilePictureView = new ImageView();
