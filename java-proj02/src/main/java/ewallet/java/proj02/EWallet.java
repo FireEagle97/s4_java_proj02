@@ -32,6 +32,10 @@ public class EWallet {
         return this.cash;
     }
 
+    public void setCash(double amount) {
+        this.cash = amount;
+    }
+
     public void listNotes(){
         for(Note note: noteList){
             System.out.println(note);

@@ -17,7 +17,7 @@ public class PaymentPanel {
 
         private WalletController walletC;
 
-    public PaymentPanel(WalletController walletC) {
+    public PaymentPanel(WalletController walletC, Label lblCashDisplay) {
         this.walletC = walletC;
 
         this.vbPayment = new VBox();
@@ -30,11 +30,11 @@ public class PaymentPanel {
         this.tfAddCash.setPromptText("Amount to add ($): ");
         this.tfCardNumberInput.setPromptText("Enter Card Number");
 
+
         Button btnCardPay = new Button("Pay with Card");
         Button btnCashPay = new Button("Pay with Cash");
         Button btnAddCash = new Button("Add Cash");
-        Label lblCashDisplay = new Label("$69.00");
-        lblCashDisplay.setStyle("-fx-text-fill: #007700; -fx-font-size: 300%;");
+
         Label lblError = new Label("<Warning text>");
         Label lblNotification = new Label("<Notification text eg. 50% limit reached>");
         HBox hbCardPayment = new HBox(this.tfCardNumberInput, this.tfPayCardAmount, btnCardPay);
@@ -44,9 +44,17 @@ public class PaymentPanel {
         this.vbPayment.getChildren().addAll(lblCashDisplay, hbAddCashBox, hbCardPayment,
                 hbCashPayment, lblError, lblNotification);
 
+        btnAddCash.setOnAction(e -> this.walletC.handleAddCash(this));
     }
 
     public VBox getVbPayment() {
         return this.vbPayment;
     }
+
+
+    public String getAddCashInput() {
+        return this.tfAddCash.getText();
+    }
+
+
 }

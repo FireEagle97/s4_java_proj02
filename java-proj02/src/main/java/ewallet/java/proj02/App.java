@@ -28,17 +28,20 @@ public class App extends Application {
 
         GridPane gpWalletView = new GridPane();
         gpWalletView.setStyle("-fx-backgroundColor: #ff0000");
-        Scene mainScene = new Scene(gpWalletView, 800, 600);
+        Scene mainScene = new Scene(gpWalletView, 800, 650);
         ComboBox cbCardDropdown = new ComboBox();
         ComboBox cbNoteDropdown = new ComboBox();
+        Label lblCashDisplay = new Label("$69.00");
+        lblCashDisplay.setStyle("-fx-text-fill: #007700; -fx-font-size: 300%;");
 
-        WalletController walletC = new WalletController(cbCardDropdown, cbNoteDropdown);
+        WalletController walletC = new WalletController(cbCardDropdown, cbNoteDropdown, lblCashDisplay);
         NoteWindow noteCreationScene = new NoteWindow(stage, mainScene, walletC);
         CardWindow cardCreationScene = new CardWindow(stage, mainScene, walletC);
+        PaymentPanel paymentPanel = new PaymentPanel(walletC, lblCashDisplay);
 
         gpWalletView.getColumnConstraints().add(new ColumnConstraints(500));
         gpWalletView.getColumnConstraints().add(new ColumnConstraints(300));
-        gpWalletView.getRowConstraints().addAll(new RowConstraints(300), new RowConstraints(500), new RowConstraints(50));
+        gpWalletView.getRowConstraints().addAll(new RowConstraints(300), new RowConstraints(300), new RowConstraints(50));
 
         //CARDS PANE
         Label lblCardsHeader = new Label("My Cards");
@@ -74,27 +77,6 @@ public class App extends Application {
 
         //PAYMENT WINDOW
 
-        PaymentPanel paymentPanel = new PaymentPanel(walletC);
-//        TextField tfCardNumberInput = new TextField();
-//        TextField tfPayCardAmount = new TextField();
-//        TextField tfPayCash = new TextField();
-//        TextField tfAddCash = new TextField();
-//        tfPayCardAmount.setPromptText("Amount to pay ($): ");
-//        tfPayCash.setPromptText("Amount to pay ($)");
-//        tfAddCash.setPromptText("Amount to add ($): ");
-//        tfCardNumberInput.setPromptText("Enter Card Number");
-//        Button btnCardPay = new Button("Pay with Card");
-//        Button btnCashPay = new Button("Pay with Cash");
-//        Button btnAddCash = new Button("Add Cash");
-//        Label lblCashDisplay = new Label("$69.00");
-//        lblCashDisplay.setStyle("-fx-text-fill: #007700; -fx-font-size: 300%;");
-//        Label lblError = new Label("<Warning text>");
-//        Label lblNotification = new Label("<Notification text eg. 50% limit reached>");
-//        HBox hbCardPayment = new HBox(tfCardNumberInput, tfPayCardAmount, btnCardPay);
-//        HBox hbCashPayment = new HBox(tfPayCash, btnCashPay);
-//        HBox hbAddCashBox = new HBox(tfAddCash, btnAddCash);
-//        vbPaymentPanel.getChildren().addAll(lblCashDisplay, hbAddCashBox, hbCardPayment, hbCashPayment, lblError, lblNotification);
-
 
         //PROFILE PICTURE HOLDER
         ImageView profilePictureView = new ImageView();
@@ -113,6 +95,9 @@ public class App extends Application {
             }
         });
 
+        //LOAD button from DB
+        Button btnLoadWallet = new Button("Load Wallet");
+        btnLoadWallet.setOnAction(evt -> walletC.handleLoadWallet());
 
         vbNotesPanel.getChildren().addAll(lblNoteHeader, cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane);
         vbCardsPanel.getChildren().addAll(lblCardsHeader, cbCardDropdown, lblCardDescription, btnAddCard);
@@ -120,6 +105,7 @@ public class App extends Application {
         gpWalletView.add(vbNotesPanel, 1, 1);
         gpWalletView.add(paymentPanel.getVbPayment(), 0, 1);
         gpWalletView.add(new VBox(profilePictureView, btnChooseFile), 0 , 0);
+        gpWalletView.add(btnLoadWallet, 0, 2);
         stage.setScene(mainScene);
         stage.show();
 

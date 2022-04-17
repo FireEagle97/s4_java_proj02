@@ -2,6 +2,8 @@ package ewallet.java.proj02;
 
 import ewallet.java.proj02.javafx.CardWindow;
 import ewallet.java.proj02.javafx.NoteWindow;
+import ewallet.java.proj02.javafx.PaymentPanel;
+import ewallet.java.proj02.sampledata.StoredWallet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -18,17 +20,19 @@ public class WalletController {
 
     private ComboBox cbCards;
     private ComboBox cbNotes;
+    private Label lblCashDisplay;
 
-    public WalletController(ComboBox cbCards, ComboBox cbNotes) {
+
+    public WalletController(ComboBox cbCards, ComboBox cbNotes, Label lblCashDisplay) {
         this.wallet = new EWallet(new ArrayList<Card>(), new ArrayList<Note>(), 0);
         this.name = "john";
         this.cbCards = cbCards;
         this.cbNotes = cbNotes;
-
+        this.lblCashDisplay = lblCashDisplay;
+        updateCashDisplay(); //set the display initally
     }
 
     public void handleCardCreationInput(CardWindow cardCreationPane) {
-        //TODO verify actual card types created (radio buttons already tested)
         Random rng = new Random();
         int expMonth = Integer.parseInt(cardCreationPane.getTfExpMonth());
         int expYear = Integer.parseInt(cardCreationPane.getTfExpYear());
@@ -104,6 +108,21 @@ public class WalletController {
 
     }
 
+    public void handleAddCash(PaymentPanel paymentPanel) {
+        double cashAmount = 0;
+        cashAmount = Double.parseDouble(paymentPanel.getAddCashInput());
+        this.wallet.setCash(this.wallet.getCash() + cashAmount);
+        updateCashDisplay();
+    }
+
+    //loading wallet from mock db
+    public void handleLoadWallet() {
+        StoredWallet mockDatabase = new StoredWallet();
+        this.wallet = mockDatabase.getSampleWallet();
+        updateCashDisplay();
+        updateNoteDropdownList();
+        updateCardDropdownList();
+    }
     private void updateNoteDropdownList() {
         ArrayList<String> noteIds = new ArrayList<>();
         for (Note note : this.wallet.getNoteList()) {
@@ -117,6 +136,12 @@ public class WalletController {
         }
 
     }
+
+    private void updateCashDisplay() {
+        this.lblCashDisplay.setText("$" + ((double)Math.round(100 *this.wallet.getCash()) / 100));
+    }
+
+
 
 
 }
