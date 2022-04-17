@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StoredWallet {
-    private EWallet sampleWallet;
+    private EWallet storedWallet;
 
     public StoredWallet() {
         List<Card> cards = new ArrayList<>();
@@ -25,10 +25,14 @@ public class StoredWallet {
         notes.add(new Note(10, 30, 2022, "Buy lots of candies for Halloween"));
         notes.add(new Note(11, 25, 2022, "Play league of legends as Akshan"));
 
-        this.sampleWallet = new EWallet(cards, notes, 750.00);
+        this.storedWallet = new EWallet(cards, notes, 750.00);
     }
 
-    public EWallet getSampleWallet() {
-        return this.sampleWallet;
+    public EWallet getStoredWallet() {
+        return this.storedWallet;
+    }
+
+    public void setStoredWallet(EWallet wallet) {
+        this.storedWallet = wallet;
     }
 }

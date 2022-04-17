@@ -16,11 +16,14 @@ import java.util.Random;
 public class WalletController {
 
     private EWallet wallet;
+    private StoredWallet storedWallet;
+
     private String name;
 
     private ComboBox cbCards;
     private ComboBox cbNotes;
     private Label lblCashDisplay;
+
 
 
     public WalletController(ComboBox cbCards, ComboBox cbNotes, Label lblCashDisplay) {
@@ -29,6 +32,7 @@ public class WalletController {
         this.cbCards = cbCards;
         this.cbNotes = cbNotes;
         this.lblCashDisplay = lblCashDisplay;
+        this.storedWallet = new StoredWallet();
         updateCashDisplay(); //set the display initally
     }
 
@@ -71,7 +75,13 @@ public class WalletController {
     public void handleNoteDeletion(TextField tfNoteIdInput) {
         this.wallet.deleteNote(tfNoteIdInput.getText());
         updateNoteDropdownList();
-        //TODO Add functionality when an existing card could not be found, display message
+        //TODO Add functionality when an existing note could not be found, display message
+    }
+
+    public void handleCardDeletion(TextField tfCardIdInput) {
+        this.wallet.deleteCard(tfCardIdInput.getText());
+        updateCardDropdownList();
+        //TODO Add functionality when an existing note could not be found, display message
     }
 
     public void handleViewCard(Label lblCard) {
@@ -115,14 +125,21 @@ public class WalletController {
         updateCashDisplay();
     }
 
-    //loading wallet from mock db
+    //SAVE / LOAD controller
+    public void handleSaveWallet() {
+        this.storedWallet.setStoredWallet(new EWallet(this.wallet));
+        updateCashDisplay();
+        updateNoteDropdownList();
+        updateCashDisplay();
+    }
     public void handleLoadWallet() {
-        StoredWallet mockDatabase = new StoredWallet();
-        this.wallet = mockDatabase.getSampleWallet();
+
+        this.wallet = new EWallet(this.storedWallet.getStoredWallet());
         updateCashDisplay();
         updateNoteDropdownList();
         updateCardDropdownList();
     }
+
     private void updateNoteDropdownList() {
         ArrayList<String> noteIds = new ArrayList<>();
         for (Note note : this.wallet.getNoteList()) {
@@ -140,7 +157,6 @@ public class WalletController {
     private void updateCashDisplay() {
         this.lblCashDisplay.setText("$" + ((double)Math.round(100 *this.wallet.getCash()) / 100));
     }
-
 
 
 

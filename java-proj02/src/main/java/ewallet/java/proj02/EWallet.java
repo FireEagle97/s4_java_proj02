@@ -8,7 +8,9 @@ package ewallet.java.proj02;/*
  *
  * @author 1811257
  */
+import java.util.ArrayList;
 import java.util.List;
+
 public class EWallet {
     private List<Card> cardList;
     private List<Note> noteList;
@@ -18,6 +20,21 @@ public class EWallet {
         this.cardList = cardList;
         this.noteList = noteList;
         this.cash = cash;
+    }
+
+    public EWallet(EWallet otherWallet) {
+        List<Card> cards = new ArrayList<>();
+        List<Note> notes = new ArrayList<>();
+
+        for (Card c : otherWallet.cardList) {
+            cards.add(c);
+        }
+        for (Note n : otherWallet.noteList) {
+            notes.add(n);
+        }
+        this.cardList = cards;
+        this.noteList = notes;
+        this.cash = otherWallet.cash;
     }
 
     public List<Card> getCardList() {

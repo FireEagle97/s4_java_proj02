@@ -49,7 +49,16 @@ public class App extends Application {
         VBox vbCardsPanel = new VBox();
         Label lblCardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet,");
         Button btnAddCard = new Button("Add new Card");
-        btnAddCard.setOnAction(e -> {
+        HBox hbCardDeletionPane = new HBox();
+        Button btnDeleteCard = new Button("Delete Card");
+        TextField tfCardIdInput = new TextField();
+        hbCardDeletionPane.getChildren().addAll(tfCardIdInput, btnDeleteCard);
+        tfCardIdInput.setPromptText("Enter Card ID in list");
+        btnDeleteCard.setOnAction(evt -> {
+            lblCardDescription.setText("");
+            walletC.handleCardDeletion(tfCardIdInput);
+        });
+        btnAddCard.setOnAction(evt -> {
             stage.setScene(cardCreationScene.getScene());
         });
 
@@ -66,12 +75,16 @@ public class App extends Application {
         TextField tfNoteIdInput = new TextField();
         hbNoteDeletionPane.getChildren().addAll(tfNoteIdInput, btnDeleteNote);
         tfNoteIdInput.setPromptText("Enter Note ID in list");
-        btnDeleteNote.setOnAction(e -> walletC.handleNoteDeletion(tfNoteIdInput));
+
 
         Label lblNoteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
         lblNoteDescription.setWrapText(true);
         Button btnAddNote = new Button("Add Note");
         btnAddNote.setOnAction(evt -> stage.setScene(noteCreationScene.getScene()));
+        btnDeleteNote.setOnAction(e -> {
+            lblNoteDescription.setText("");
+            walletC.handleNoteDeletion(tfNoteIdInput);
+        });
 
         cbNoteDropdown.setOnAction(evt -> walletC.handleViewNote(lblNoteDescription));
 
@@ -96,16 +109,20 @@ public class App extends Application {
         });
 
         //LOAD button from DB
+        Button btnSaveWallet = new Button("Save Wallet");
+        btnSaveWallet.setOnAction(evt -> walletC.handleSaveWallet());
         Button btnLoadWallet = new Button("Load Wallet");
         btnLoadWallet.setOnAction(evt -> walletC.handleLoadWallet());
 
+
         vbNotesPanel.getChildren().addAll(lblNoteHeader, cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane);
-        vbCardsPanel.getChildren().addAll(lblCardsHeader, cbCardDropdown, lblCardDescription, btnAddCard);
+        vbCardsPanel.getChildren().addAll(lblCardsHeader, cbCardDropdown, lblCardDescription, btnAddCard, hbCardDeletionPane);
         gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);
         gpWalletView.add(paymentPanel.getVbPayment(), 0, 1);
         gpWalletView.add(new VBox(profilePictureView, btnChooseFile), 0 , 0);
         gpWalletView.add(btnLoadWallet, 0, 2);
+        gpWalletView.add(btnSaveWallet, 1, 2);
         stage.setScene(mainScene);
         stage.show();
 
