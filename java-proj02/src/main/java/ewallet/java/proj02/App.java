@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.control.ListView;
 
 import java.io.File;
 
@@ -33,7 +34,6 @@ public class App extends Application {
         ComboBox cbNoteDropdown = new ComboBox();
         Label lblCashDisplay = new Label("$69.00");
         lblCashDisplay.setStyle("-fx-text-fill: #007700; -fx-font-size: 300%;");
-
         WalletController walletC = new WalletController(cbCardDropdown, cbNoteDropdown, lblCashDisplay);
         NoteWindow noteCreationScene = new NoteWindow(stage, mainScene, walletC);
         CardWindow cardCreationScene = new CardWindow(stage, mainScene, walletC);
@@ -85,8 +85,22 @@ public class App extends Application {
             lblNoteDescription.setText("");
             walletC.handleNoteDeletion(tfNoteIdInput);
         });
-
         cbNoteDropdown.setOnAction(evt -> walletC.handleViewNote(lblNoteDescription));
+        //Dany code
+        Button btnShowNotes = new Button("show Notes");
+        btnShowNotes.setOnAction(evt -> {
+            Pane notesPane = new Pane();
+            ListView notesList = new ListView();
+            notesList.getItems().add("item 1");
+            notesList.getItems().add("item 2");
+            notesPane.getChildren.add(notesList);
+            Stage stage1 = new Stage();
+            Scene scene1 = new Scene(notesPane,200,200);
+            stage1.setTitle("Show Notes");
+            stage1.setScene(scene1);
+            stage1.show();
+            
+        });
 
         //PAYMENT WINDOW
 
@@ -116,6 +130,7 @@ public class App extends Application {
 
 
         vbNotesPanel.getChildren().addAll(lblNoteHeader, cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane);
+        vbNotesPanel.getChildren().add(btnShowNotes);
         vbCardsPanel.getChildren().addAll(lblCardsHeader, cbCardDropdown, lblCardDescription, btnAddCard, hbCardDeletionPane);
         gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);

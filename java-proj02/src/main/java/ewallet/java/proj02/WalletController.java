@@ -17,9 +17,7 @@ public class WalletController {
 
     private EWallet wallet;
     private StoredWallet storedWallet;
-
     private String name;
-
     private ComboBox cbCards;
     private ComboBox cbNotes;
     private Label lblCashDisplay;
