@@ -32,10 +32,7 @@ public class DebitCard extends PaymentCard {
         setLimit(this.getLimit() - amount); //subtract from  bank balance
         return true;
     }
-    
-    public void addCash(int amount){
-        this.setLimit(this.getLimit()+ amount);
-    }
+
 
     @Override
     public boolean equals(Object otherCard) {

@@ -108,16 +108,29 @@ public class EWallet {
 
 
 
-    public void makePayment(String CardNumber, int amount) {
-        Card selectedCard = this.cardList.get(findCardByNumber(CardNumber));
+    public boolean makePayment(String CardNumber, double amount) {
+        if (this.cardList.isEmpty()) {
+            throw new IllegalArgumentException("No cards in this wallet!");
+        }
+        int cardIndex = findCardByNumber(CardNumber);
+        if (cardIndex == -1) {
+            throw new IllegalArgumentException("Cannot find card with this number");
+        }
+
+        Card selectedCard = this.cardList.get(cardIndex);
 
         if (selectedCard == null) {
             throw new IllegalArgumentException("Cannot find card");
         }
-        //check if a card is a credit card by comparing to a random made-up credit card
-        if (!selectedCard.equals(new CreditCard("000", 0, 1, 2000, selectedCard.getCardHolderName(), selectedCard.getCardNumber()))) {
-            throw new IllegalArgumentException("Not a credit card");
+
+        if (selectedCard instanceof PaymentCard) {
+            boolean isSuccessful = ((PaymentCard) selectedCard).pay((int)amount);
+            return isSuccessful;
+        } else {
+            throw new IllegalArgumentException("Not a payment card.");
         }
+
+
     }
 
     

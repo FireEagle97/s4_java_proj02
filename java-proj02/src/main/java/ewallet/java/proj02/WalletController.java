@@ -121,8 +121,38 @@ public class WalletController {
     public void handleAddCash(PaymentPanel paymentPanel) {
         double cashAmount = 0;
         cashAmount = Double.parseDouble(paymentPanel.getAddCashInput());
+        //TODO add exception handling for non numbers
         this.wallet.setCash(this.wallet.getCash() + cashAmount);
         updateCashDisplay();
+    }
+
+    public void handlePayWithCash(PaymentPanel paymentPanel) {
+        double payAmount = 0;
+        payAmount = Double.parseDouble(paymentPanel.getPayCashInput());
+        if (payAmount <= this.wallet.getCash()) {
+            this.wallet.setCash(this.wallet.getCash() - payAmount);
+            updateCashDisplay();
+        } else {
+            paymentPanel.setErrorMessage("Not enough cash.");
+        }
+    }
+
+    public void handlePayWithCard(PaymentPanel paymentPanel) {
+        double payAmount = 0;
+        payAmount = Double.parseDouble(paymentPanel.getPayCardInput());
+        String cardNumberInput = paymentPanel.getCardNumberInput();
+        try {
+            boolean isSuccessful = this.wallet.makePayment(cardNumberInput, payAmount);
+            if (!isSuccessful) {
+                paymentPanel.setErrorMessage("Not enough funds; transaction declined");
+            } else {
+                paymentPanel.setErrorMessage("");
+                updateCardDropdownList();
+            }
+        } catch (IllegalArgumentException exc) {
+            paymentPanel.setErrorMessage(exc.getMessage());
+        }
+
     }
 
     //SAVE / LOAD controller

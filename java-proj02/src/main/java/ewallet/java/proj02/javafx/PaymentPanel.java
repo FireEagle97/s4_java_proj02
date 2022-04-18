@@ -15,6 +15,8 @@ public class PaymentPanel {
         private TextField tfPayCash;
         private TextField tfAddCash;
 
+        private Label lblError;
+
         private WalletController walletC;
 
     public PaymentPanel(WalletController walletC, Label lblCashDisplay) {
@@ -35,7 +37,7 @@ public class PaymentPanel {
         Button btnCashPay = new Button("Pay with Cash");
         Button btnAddCash = new Button("Add Cash");
 
-        Label lblError = new Label("<Warning text>");
+        this.lblError = new Label();
         Label lblNotification = new Label("<Notification text eg. 50% limit reached>");
         HBox hbCardPayment = new HBox(this.tfCardNumberInput, this.tfPayCardAmount, btnCardPay);
         HBox hbCashPayment = new HBox(this.tfPayCash, btnCashPay);
@@ -44,17 +46,33 @@ public class PaymentPanel {
         this.vbPayment.getChildren().addAll(lblCashDisplay, hbAddCashBox, hbCardPayment,
                 hbCashPayment, lblError, lblNotification);
 
-        btnAddCash.setOnAction(e -> this.walletC.handleAddCash(this));
+        btnAddCash.setOnAction(evt  -> this.walletC.handleAddCash(this));
+        btnCashPay.setOnAction(evt -> this.walletC.handlePayWithCash(this));
+        btnCardPay.setOnAction(evt -> this.walletC.handlePayWithCard(this));
     }
 
     public VBox getVbPayment() {
         return this.vbPayment;
     }
 
+    public void setErrorMessage(String message) {
+        this.lblError.setText(message);
+    }
 
     public String getAddCashInput() {
         return this.tfAddCash.getText();
     }
 
+    public String getPayCashInput() {
+        return this.tfPayCash.getText();
+    }
+
+    public String getPayCardInput() {
+        return this.tfPayCardAmount.getText();
+    }
+
+    public String getCardNumberInput() {
+        return  this.tfCardNumberInput.getText();
+    }
 
 }
