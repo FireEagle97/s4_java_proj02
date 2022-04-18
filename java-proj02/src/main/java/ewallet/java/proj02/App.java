@@ -66,7 +66,7 @@ public class App extends Application {
             File walletPicture = picFileChooser.showOpenDialog(stage);
             if (walletPicture != null) {
                 System.out.println(walletPicture.getAbsolutePath());
-                profilePictureView.setImage(new Image(walletPicture.getAbsolutePath()));
+                profilePictureView.setImage(new Image("file:///" +walletPicture.getAbsolutePath()));
                 profilePictureView.scaleXProperty();
                 profilePictureView.scaleYProperty();
             }
