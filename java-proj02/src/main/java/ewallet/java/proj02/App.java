@@ -62,10 +62,18 @@ public class App extends Application {
             stage.setScene(cardCreationScene.getScene());
         });
 
-        walletC.getCbCards().setOnAction(evt ->
-                walletC.handleViewCard(lblCardDescription)
+        walletC.getCbCards().setOnAction(evt ->{
+                Pane cardView = new Pane();
+                Button deleteNote = new Button("Delete this card");
+                cardView.getChildren().add(walletC.handleViewCard(lblCardDescription));
+                cardView.getChildren().add(deleteNote);
+                Stage stage1 = new Stage();
+                Scene scene1 = new Scene(cardView,300,150);
+                stage1.setTitle("Show Card");
+                stage1.setScene(scene1);
+                stage1.show();
             
-                );
+        });
 
 
         //NOTES PANE
@@ -87,25 +95,24 @@ public class App extends Application {
             lblNoteDescription.setText("");
             walletC.handleNoteDeletion(tfNoteIdInput);
         });
-        walletC.getCbNotes().setOnAction(evt ->
-                walletC.handleViewNote(lblNoteDescription)
-                );
-        
-        //Dany code
-        Button btnShowNotes = new Button("show Notes");
-        btnShowNotes.setOnAction(evt -> {
-            Pane notesPane = new Pane();
-            ListView notesList = new ListView();
-            notesList.getItems().add("item 1");
-            notesList.getItems().add("item 2");
-            notesPane.getChildren().add(notesList);
-            Stage stage1 = new Stage();
-            Scene scene1 = new Scene(notesPane,200,200);
-            stage1.setTitle("Show Notes");
-            stage1.setScene(scene1);
-            stage1.show();
-            
+        walletC.getCbNotes().setOnAction(evt -> {
+                Pane noteView = new Pane();
+                Button deleteNote = new Button("Delete this note");
+                noteView.getChildren().add(walletC.handleViewNote(lblNoteDescription));
+                //walletC.updateNoteDropdownList();
+                noteView.getChildren().add(deleteNote);
+                Stage stage1 = new Stage();
+                Scene scene1 = new Scene(noteView,300,150);
+                stage1.setTitle("Show Note");
+                stage1.setScene(scene1);
+                stage1.show();
+                stage1.setOnCloseRequest(evt1 -> {
+                    walletC.updateNoteDropdownList();
+                });
+                
         });
+        
+        
 
         //PAYMENT WINDOW
 
@@ -135,7 +142,7 @@ public class App extends Application {
 
 
         vbNotesPanel.getChildren().addAll(lblNoteHeader, walletC.getCbNotes(), lblNoteDescription, btnAddNote, hbNoteDeletionPane);
-        vbNotesPanel.getChildren().add(btnShowNotes);
+        //vbNotesPanel.getChildren().add(btnShowNotes);
         vbCardsPanel.getChildren().addAll(lblCardsHeader, walletC.getCbCards(), lblCardDescription, btnAddCard, hbCardDeletionPane);
         gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);
