@@ -44,7 +44,7 @@ public abstract class PaymentCard extends Card {
             System.out.println("not equal type");
             return false;
         }
-        return true;
+        return super.equals(card);
         
     }
 

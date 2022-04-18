@@ -1,13 +1,18 @@
 package ewallet.java.proj02.tests;
-
+import static org.junit.jupiter.api.Assertions.*;
 import ewallet.java.proj02.Note;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 public class NoteJUnit {
 
+    @Test
+    public void testGetIdFirstNote() {
+        Note sampleNote = new Note(5, 10, 2005, "First note");
+        Note sampleNote2 = new Note(5, 10, 2005, "second note");
+        assertEquals("00001", sampleNote.getNoteId());
+        assertEquals("00002", sampleNote2.getNoteId());
+    }
     @Test
     public void testEquals() {
         Note sampleNote = new Note(1, 5,10,2005, "Sample note. The Id of the notes is that makes a note equal, as ids are unique to each note");
@@ -22,19 +27,7 @@ public class NoteJUnit {
         assertEquals(false, sampleNote.equals(otherNote));
     }
 
-    @Test
-    public void testGetId() {
-        Note sampleNote = new Note(5, 10, 2005, "different id means not equal");
-        assertEquals("00001", sampleNote.getNoteId());
-    }
 
-    @Test
-    public void testGetId2() {
-        Note sampleNote = new Note(5, 10, 2005, "different id means not equal");
-        Note sampleNote2 = new Note(5, 10, 2005, "different id means not equal");
-        //makes sure the id is 00002 for the second note
-        assertEquals("00002", sampleNote2.getNoteId());
-    }
 
     @Test
     public void testGetNoteBody() {
