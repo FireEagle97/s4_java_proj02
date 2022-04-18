@@ -93,7 +93,7 @@ public class App extends Application {
             ListView notesList = new ListView();
             notesList.getItems().add("item 1");
             notesList.getItems().add("item 2");
-            notesPane.getChildren.add(notesList);
+            notesPane.getChildren().add(notesList);
             Stage stage1 = new Stage();
             Scene scene1 = new Scene(notesPane,200,200);
             stage1.setTitle("Show Notes");
@@ -116,12 +116,7 @@ public class App extends Application {
         btnChooseFile.setOnAction(e -> {
             File walletPicture = picFileChooser.showOpenDialog(stage);
             if (walletPicture != null) {
-<<<<<<< HEAD
-                System.out.println(walletPicture.getAbsolutePath());
-                profilePictureView.setImage(new Image("file:///" +walletPicture.getAbsolutePath()));
-=======
                 profilePictureView.setImage(new Image("File:///" + walletPicture.getAbsolutePath()));
->>>>>>> 80567f12b9e9c823b85f83eab6b8e0a8f14b4115
                 profilePictureView.scaleXProperty();
                 profilePictureView.scaleYProperty();
             }
