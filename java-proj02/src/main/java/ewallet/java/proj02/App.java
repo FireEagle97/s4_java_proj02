@@ -69,6 +69,7 @@ public class App extends Application {
         cbCardDropdown.setOnAction(evt -> walletC.handleViewCard(lblCardDescription));
 
 
+
         //NOTES PANE
         Label lblNoteHeader = new Label("My Notes");
         lblNoteHeader.setStyle("-fx-font-size: 200%; ");

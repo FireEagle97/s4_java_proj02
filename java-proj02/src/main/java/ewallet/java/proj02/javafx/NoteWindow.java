@@ -49,6 +49,7 @@ public class NoteWindow {
             mainStage.setScene(this.mainScene);
         });
 
+        mainStage.setOnCloseRequest(evt -> System.out.println("sovaaaaawadw"));
 
         btnAdd.setOnAction(evt -> {
             mainStage.setTitle("My E-wallet 2022");

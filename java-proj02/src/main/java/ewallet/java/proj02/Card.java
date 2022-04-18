@@ -4,6 +4,8 @@ package ewallet.java.proj02;/*
  * and open the template in the editor.
  */
 
+import java.util.Objects;
+
 /**
  *
  * @author 1811257
@@ -31,6 +33,12 @@ public class Card {
         return "the card holder is " + this.cardHolderName + " and the card number is " + this.cardNumber;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return Objects.equals(cardHolderName, card.cardHolderName) && Objects.equals(cardNumber, card.cardNumber);
+    }
 
-    
 }

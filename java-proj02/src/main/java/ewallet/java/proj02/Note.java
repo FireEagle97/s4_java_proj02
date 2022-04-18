@@ -22,6 +22,14 @@ public class Note {
         Note.currentNoteIdIndex++;
     }
 
+    //only for junit
+    public Note(int noteId, int day,int month,int year, String noteBody) {
+        this.dateOfCreation = new Date(day,month,year);
+        this.noteBody = noteBody;
+        this.noteId = String.format("%05d", noteId);
+    }
+
+
     public String getNoteId() {
         return this.noteId;
     }
@@ -42,7 +50,7 @@ public class Note {
             System.out.println("not equal type");
             return false;
         }
-        return true;
+        return this.noteId.equals(((Note) note).noteId);
     }
     @Override
     public String toString(){

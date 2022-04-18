@@ -180,9 +180,11 @@ public class WalletController {
         }
         ObservableList<String> notes = FXCollections.observableArrayList(noteIds);
         this.cbNotes.getItems().clear();
+
         this.cbNotes.getItems().addAll(notes);
         if (!notes.isEmpty()) {
-            cbNotes.setValue(notes.get(notes.size() - 1));
+            this.cbNotes.setPromptText("akshan");
+            this.cbNotes.setValue(null);
         }
 
     }

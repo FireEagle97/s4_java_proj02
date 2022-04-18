@@ -20,10 +20,13 @@ public abstract class PaymentCard extends Card {
         this.expiryDate = new Date(expiryYear,expiryMonth);
     }
 
-//    public String getSecurityCode() {
-//        return this.securityCode;
-//    }
+    public String getSecurityCode() {
+        return this.securityCode;
+    }
 
+    public Date getExpiryDate() {
+        return this.expiryDate;
+    }
     public int getLimit() {
         return this.limit;
     }
@@ -32,9 +35,6 @@ public abstract class PaymentCard extends Card {
         this.limit = newLimit;
     }
 
-//    public Date getExpiryDate() {
-//        return this.expiryDate;
-//    }
 
     public abstract boolean pay(int amount);
 

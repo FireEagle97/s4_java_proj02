@@ -4,6 +4,8 @@ package ewallet.java.proj02;/*
  * and open the template in the editor.
  */
 
+import java.util.Objects;
+
 /**
  *
  * @author 1811257
@@ -15,6 +17,7 @@ public class Date {
     public Date(int year, int month){
         this.month = month;
         this.year = year;
+        this.day = 1;
     }
     public Date(int year, int month, int day){
       this.month = month;
@@ -32,6 +35,14 @@ public class Date {
 
     public int getYear() {
         return this.year;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Date date = (Date) o;
+        return month == date.month && year == date.year && day == date.day;
     }
 
     @Override
