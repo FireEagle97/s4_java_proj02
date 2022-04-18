@@ -1,5 +1,6 @@
 package ewallet.java.proj02;
 
+import ewallet.java.proj02.javafx.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,9 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.control.ListView;
 
 import java.io.File;
 
@@ -27,37 +28,87 @@ public class App extends Application {
         var javafxVersion = SystemInfo.javafxVersion();
 
         GridPane gpWalletView = new GridPane();
+        gpWalletView.setStyle("-fx-backgroundColor: #ff0000");
+        Scene mainScene = new Scene(gpWalletView, 800, 650);
+        ComboBox cbCardDropdown = new ComboBox();
+        ComboBox cbNoteDropdown = new ComboBox();
+        Label lblCashDisplay = new Label("$69.00");
+        lblCashDisplay.setStyle("-fx-text-fill: #007700; -fx-font-size: 300%;");
+        WalletController walletC = new WalletController(cbCardDropdown, cbNoteDropdown, lblCashDisplay);
+        NoteWindow noteCreationScene = new NoteWindow(stage, mainScene, walletC);
+        CardWindow cardCreationScene = new CardWindow(stage, mainScene, walletC);
+        PaymentPanel paymentPanel = new PaymentPanel(walletC, lblCashDisplay);
+
         gpWalletView.getColumnConstraints().add(new ColumnConstraints(500));
         gpWalletView.getColumnConstraints().add(new ColumnConstraints(300));
-        gpWalletView.getRowConstraints().addAll(new RowConstraints(300), new RowConstraints(500), new RowConstraints(50));
+        gpWalletView.getRowConstraints().addAll(new RowConstraints(300), new RowConstraints(300), new RowConstraints(50));
+
         //CARDS PANE
+        Label lblCardsHeader = new Label("My Cards");
+        lblCardsHeader.setStyle("-fx-font-size: 200%;");
         VBox vbCardsPanel = new VBox();
-        Text tExpMonth = new Text("EXP Month");
-        Text tExpDay = new Text("EXP Day");
-        Text tExpYear = new Text("EXP Year");
-        Text tLimit = new Text("Limit (credit) / Available Funds (debit)");
-        TextField tfExpMonth = new TextField();
-        TextField tfExpDay = new TextField();
-        TextField tfExpYear = new TextField();
-        TextField tfLimit = new TextField();
-        ComboBox cbCardDropdown = new ComboBox();
-        Label cardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
+        Label lblCardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet,");
+        Button btnAddCard = new Button("Add new Card");
+        HBox hbCardDeletionPane = new HBox();
+        Button btnDeleteCard = new Button("Delete Card");
+        TextField tfCardIdInput = new TextField();
+        hbCardDeletionPane.getChildren().addAll(tfCardIdInput, btnDeleteCard);
+        tfCardIdInput.setPromptText("Enter Card ID in list");
+        btnDeleteCard.setOnAction(evt -> {
+            lblCardDescription.setText("");
+            walletC.handleCardDeletion(tfCardIdInput);
+        });
+        btnAddCard.setOnAction(evt -> {
+            stage.setScene(cardCreationScene.getScene());
+        });
+
+        cbCardDropdown.setOnAction(evt -> walletC.handleViewCard(lblCardDescription));
+
 
         //NOTES PANE
+        Label lblNoteHeader = new Label("My Notes");
+        lblNoteHeader.setStyle("-fx-font-size: 200%; ");
         VBox vbNotesPanel = new VBox();
-        Text tMonthInput = new Text("Month");
-        Text tDayInput = new Text("Day");
-        Text tYearInput = new Text("Year");
-        TextField tfMonth = new TextField();
-        TextField tfDay = new TextField();
-        TextField tfYear = new TextField();
-        ComboBox cbNoteDropdown = new ComboBox();
-        Label noteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
+        vbNotesPanel.applyCss();
+        HBox hbNoteDeletionPane = new HBox();
+        Button btnDeleteNote = new Button("Delete Note");
+        TextField tfNoteIdInput = new TextField();
+        hbNoteDeletionPane.getChildren().addAll(tfNoteIdInput, btnDeleteNote);
+        tfNoteIdInput.setPromptText("Enter Note ID in list");
+
+
+        Label lblNoteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
+        lblNoteDescription.setWrapText(true);
+        Button btnAddNote = new Button("Add Note");
+        btnAddNote.setOnAction(evt -> stage.setScene(noteCreationScene.getScene()));
+        btnDeleteNote.setOnAction(e -> {
+            lblNoteDescription.setText("");
+            walletC.handleNoteDeletion(tfNoteIdInput);
+        });
+        cbNoteDropdown.setOnAction(evt -> walletC.handleViewNote(lblNoteDescription));
+        //Dany code
+        Button btnShowNotes = new Button("show Notes");
+        btnShowNotes.setOnAction(evt -> {
+            Pane notesPane = new Pane();
+            ListView notesList = new ListView();
+            notesList.getItems().add("item 1");
+            notesList.getItems().add("item 2");
+            notesPane.getChildren.add(notesList);
+            Stage stage1 = new Stage();
+            Scene scene1 = new Scene(notesPane,200,200);
+            stage1.setTitle("Show Notes");
+            stage1.setScene(scene1);
+            stage1.show();
+            
+        });
+
+        //PAYMENT WINDOW
+
 
         //PROFILE PICTURE HOLDER
         ImageView profilePictureView = new ImageView();
-        profilePictureView.setFitHeight(300);
-        profilePictureView.setFitWidth(300);
+        profilePictureView.setFitHeight(250);
+        profilePictureView.setFitWidth(250);
         FileChooser picFileChooser = new FileChooser();
         picFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.bmp"));
         picFileChooser.setTitle("Choose Akshan Picture:");
@@ -65,30 +116,35 @@ public class App extends Application {
         btnChooseFile.setOnAction(e -> {
             File walletPicture = picFileChooser.showOpenDialog(stage);
             if (walletPicture != null) {
+<<<<<<< HEAD
                 System.out.println(walletPicture.getAbsolutePath());
                 profilePictureView.setImage(new Image("file:///" +walletPicture.getAbsolutePath()));
+=======
+                profilePictureView.setImage(new Image("File:///" + walletPicture.getAbsolutePath()));
+>>>>>>> 80567f12b9e9c823b85f83eab6b8e0a8f14b4115
                 profilePictureView.scaleXProperty();
                 profilePictureView.scaleYProperty();
             }
         });
 
+        //LOAD button from DB
+        Button btnSaveWallet = new Button("Save Wallet");
+        btnSaveWallet.setOnAction(evt -> walletC.handleSaveWallet());
+        Button btnLoadWallet = new Button("Load Wallet");
+        btnLoadWallet.setOnAction(evt -> walletC.handleLoadWallet());
 
 
-        noteDescription.setWrapText(true);
-        vbNotesPanel.getChildren().addAll(new Text("My Notes"), cbNoteDropdown, noteDescription, tMonthInput, tfMonth,
-                tDayInput, tfDay, tYearInput, tfYear);
-        vbCardsPanel.getChildren().addAll(new Text("My Cards"), cbCardDropdown, cardDescription, tExpMonth, tfExpMonth,
-                tExpDay, tfExpDay, tExpYear, tfExpYear, tLimit, tfLimit);
+        vbNotesPanel.getChildren().addAll(lblNoteHeader, cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane);
+        vbNotesPanel.getChildren().add(btnShowNotes);
+        vbCardsPanel.getChildren().addAll(lblCardsHeader, cbCardDropdown, lblCardDescription, btnAddCard, hbCardDeletionPane);
         gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);
+        gpWalletView.add(paymentPanel.getVbPayment(), 0, 1);
         gpWalletView.add(new VBox(profilePictureView, btnChooseFile), 0 , 0);
-//        tfDay.applyCss("fx-backgroundColor");
-        var scene = new Scene(gpWalletView, 800, 600);
-
-
-        stage.setScene(scene);
+        gpWalletView.add(btnLoadWallet, 0, 2);
+        gpWalletView.add(btnSaveWallet, 1, 2);
+        stage.setScene(mainScene);
         stage.show();
-
 
     }
 
