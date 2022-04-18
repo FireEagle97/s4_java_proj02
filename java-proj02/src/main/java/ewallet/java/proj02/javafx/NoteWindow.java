@@ -37,8 +37,10 @@ public class NoteWindow {
         Button btnAdd = new Button("Add Note");
         Button btnBack = new Button("Cancel");
 
+        Label lblError = new Label();
+        lblError.setStyle("-fx-text-fill: #FF0000; -fx-font-size: 150%;");
 
-        this.vbNotesPanel.getChildren().addAll(tMonthInput, this.tfMonth, tDayInput, this.tfDay, tYearInput, this.tfYear, this.taNoteBody, btnAdd, btnBack);
+        this.vbNotesPanel.getChildren().addAll(tMonthInput, this.tfMonth, tDayInput, this.tfDay, tYearInput, this.tfYear, this.taNoteBody, lblError, btnAdd, btnBack);
         this.scene = new Scene(this.vbNotesPanel, 400, 300);
         this.mainScene = mainScene;
         this.walletC = walletC;
@@ -47,11 +49,17 @@ public class NoteWindow {
             mainStage.setScene(this.mainScene);
         });
 
-        //TODO get the controller to retrieve the input values and add functionality to tell model to create card.
+
         btnAdd.setOnAction(evt -> {
             mainStage.setTitle("My E-wallet 2022");
-            mainStage.setScene(this.mainScene);
-            this.walletC.handleNoteCreationInput(this);
+            try {
+                this.walletC.handleNoteCreationInput(this);
+                lblError.setText("");
+                mainStage.setScene(this.mainScene);
+            } catch (IllegalArgumentException exc) {
+                lblError.setText(exc.getMessage());
+            }
+
         });
 
 

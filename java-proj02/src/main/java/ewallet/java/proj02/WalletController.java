@@ -68,20 +68,18 @@ public class WalletController {
         this.wallet.addNote(new Note(day, month, year, body));
         this.wallet.listNotes();
         updateNoteDropdownList();
-        //TODO Add functionality when the max threshhold is reached, display message
+
 
     }
 
     public void handleNoteDeletion(TextField tfNoteIdInput) {
         this.wallet.deleteNote(tfNoteIdInput.getText());
         updateNoteDropdownList();
-        //TODO Add functionality when an existing note could not be found, display message
     }
 
     public void handleCardDeletion(TextField tfCardIdInput) {
         this.wallet.deleteCard(tfCardIdInput.getText());
         updateCardDropdownList();
-        //TODO Add functionality when an existing note could not be found, display message
     }
 
     public void handleViewCard(Label lblCard) {
@@ -120,10 +118,14 @@ public class WalletController {
 
     public void handleAddCash(PaymentPanel paymentPanel) {
         double cashAmount = 0;
-        cashAmount = Double.parseDouble(paymentPanel.getAddCashInput());
-        //TODO add exception handling for non numbers
-        this.wallet.setCash(this.wallet.getCash() + cashAmount);
-        updateCashDisplay();
+        try {
+            cashAmount = Double.parseDouble(paymentPanel.getAddCashInput());
+            this.wallet.setCash(this.wallet.getCash() + cashAmount);
+            paymentPanel.setErrorMessage("");
+            updateCashDisplay();
+        } catch (NumberFormatException exc) {
+            paymentPanel.setErrorMessage("Invalid amount");
+        }
     }
 
     public void handlePayWithCash(PaymentPanel paymentPanel) {
@@ -131,6 +133,7 @@ public class WalletController {
         payAmount = Double.parseDouble(paymentPanel.getPayCashInput());
         if (payAmount <= this.wallet.getCash()) {
             this.wallet.setCash(this.wallet.getCash() - payAmount);
+            paymentPanel.setErrorMessage("");
             updateCashDisplay();
         } else {
             paymentPanel.setErrorMessage("Not enough cash.");

@@ -3,10 +3,7 @@ package ewallet.java.proj02.javafx;
 import ewallet.java.proj02.WalletController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -40,6 +37,8 @@ public class CardWindow {
         Button btnAdd = new Button("Add Card");
         Button btnBack = new Button("Cancel");
 
+        Label lblError = new Label();
+        lblError.setStyle("-fx-text-fill: #FF0000; -fx-font-size: 150%;");
 
         this.tfExpMonth = new TextField();
         this.tfExpYear = new TextField();
@@ -61,7 +60,7 @@ public class CardWindow {
         hbButtonsPane.getChildren().addAll(this.rbDebit, this.rbCredit, this.rbPersonal);
 
         this.vbCardPanel.getChildren().addAll(hbButtonsPane, tExpMonth, this.tfExpMonth, tExpYear, this.tfExpYear,
-                tCardDescription, this.tfCardDescription,  tLimit, this.tfLimit, btnAdd, btnBack);
+                tCardDescription, this.tfCardDescription,  tLimit, this.tfLimit, lblError, btnAdd, btnBack);
         tCardDescription.setVisible(false);
         this.tfCardDescription.setVisible(false);
         this.scene = new Scene(this.vbCardPanel, 400, 300);
@@ -83,10 +82,15 @@ public class CardWindow {
             mainStage.setScene(this.mainScene);
         });
 
-        //TODO get the controller to retrieve the input values and add functionality to tell model to create card.
+
         btnAdd.setOnAction(evt -> {
-            this.walletC.handleCardCreationInput(this);
-            mainStage.setScene(this.mainScene);
+            try {
+                this.walletC.handleCardCreationInput(this);
+                mainStage.setScene(this.mainScene);
+                lblError.setText("");
+            } catch (IllegalArgumentException exc) {
+                lblError.setText(exc.getMessage());
+            }
         });
 
 

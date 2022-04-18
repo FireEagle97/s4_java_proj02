@@ -1,6 +1,8 @@
 package ewallet.java.proj02;
 
 import ewallet.java.proj02.javafx.*;
+import javafx.animation.PathTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,8 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -105,6 +109,11 @@ public class App extends Application {
                 profilePictureView.setImage(new Image("File:///" + walletPicture.getAbsolutePath()));
                 profilePictureView.scaleXProperty();
                 profilePictureView.scaleYProperty();
+                PathTransition pt = new PathTransition(Duration.millis(500), new Line(100, -100, 100, 100), profilePictureView);
+                PathTransition pt2 = new PathTransition(Duration.millis(200), new Line(100, 100, 100, 70), profilePictureView);
+                PathTransition pt3 = new PathTransition(Duration.millis(200), new Line(100, 70, 100, 100), profilePictureView);
+                SequentialTransition bouncingAnimation = new SequentialTransition(pt, pt2, pt3);
+                bouncingAnimation.play();
             }
         });
 

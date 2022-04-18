@@ -60,9 +60,10 @@ public class EWallet {
     }
     
     public void addNote(Note newNote){
-        if (noteList.size() > 10){
+        System.out.println(this.noteList.size());
+        if (noteList.size() >= 10){
             throw new IllegalArgumentException("number of notes exceeds the limit");
-        } 
+        }
         noteList.add(newNote);
     }
 
