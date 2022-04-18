@@ -1,4 +1,4 @@
-/*
+package ewallet.java.proj02;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -30,6 +30,7 @@ public class Card {
     public String toString(){
         return "the card holder is " + this.cardHolderName + " and the card number is " + this.cardNumber;
     }
-  
+
+
     
 }
