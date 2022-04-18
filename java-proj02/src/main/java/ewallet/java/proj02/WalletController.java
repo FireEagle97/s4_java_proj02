@@ -24,14 +24,33 @@ public class WalletController {
 
 
 
-    public WalletController(ComboBox cbCards, ComboBox cbNotes, Label lblCashDisplay) {
+    public WalletController(Label lblCashDisplay) {
         this.wallet = new EWallet(new ArrayList<Card>(), new ArrayList<Note>(), 0);
+        //ComboBox cbCardDropdown = new ComboBox();
+        //ComboBox cbNoteDropdown = new ComboBox();
+        //Label lblCashDisplay = new Label("$69.00");
         this.name = "john";
-        this.cbCards = cbCards;
-        this.cbNotes = cbNotes;
+        this.cbCards = new ComboBox();
+        this.cbCards.setPromptText("choose a card");
+        this.cbNotes = new ComboBox();
+        this.cbNotes.setPromptText("choose a note");
+        //this.cbNotes.getSelectionModel().selectFirst();
+        //this.cbCards.getSelectionModel().selectFirst();
         this.lblCashDisplay = lblCashDisplay;
         this.storedWallet = new StoredWallet();
         updateCashDisplay(); //set the display initally
+    }
+    
+    public ObservableList<String> cbNotesInitiater(){
+        String[] notesList = {"test"};
+        ObservableList<String> notesInitiater = FXCollections.observableArrayList(notesList);
+        return notesInitiater;
+    }
+    
+    public ObservableList<String> cbCardsInitiater(){
+        String[] cardsList = {"choose a card"};
+        ObservableList<String> cardsInitiater = FXCollections.observableArrayList(cardsList);
+        return cardsInitiater;
     }
 
     public void handleCardCreationInput(CardWindow cardCreationPane) {
@@ -82,38 +101,34 @@ public class WalletController {
         //TODO Add functionality when an existing note could not be found, display message
     }
 
-    public void handleViewCard(Label lblCard) {
+    public Label handleViewCard(Label lblCard) {
 
         if (!this.cbCards.getItems().isEmpty()) {
             String selectedCardNumber = this.cbCards.getValue().toString();
-            Card selectedCard = wallet.getCardList().get(wallet.findCardByNumber(selectedCardNumber));
-            lblCard.setText(selectedCard.toString());
+            if(! selectedCardNumber.equals("choose a card")){
+                Card selectedCard = wallet.getCardList().get(wallet.findCardByNumber(selectedCardNumber));
+                lblCard.setText(selectedCard.toString());
+            }
+            else{
+                lblCard.setText("");
+            }
         }
+        return lblCard;
 
     }
 
-    public void handleViewNote(Label lblNote) {
+    public Label handleViewNote(Label lblNote) {
 
         if (!this.cbNotes.getItems().isEmpty()) {
             String selectedNoteId = this.cbNotes.getValue().toString();
             Note selectedNote = wallet.getNoteList().get(wallet.findNoteById(selectedNoteId));
             lblNote.setText(selectedNote.toString());
+            
+//            else{
+//                lblNote.setText("");
+//            }
         }
-
-    }
-
-    private void updateCardDropdownList() {
-        ArrayList<String> cardIds = new ArrayList<>();
-        for (Card card : this.wallet.getCardList()) {
-            cardIds.add(card.getCardNumber());
-        }
-        ObservableList<String> cards = FXCollections.observableArrayList(cardIds);
-        this.cbCards.getItems().clear();
-        this.cbCards.getItems().addAll(cards);
-        if (!cards.isEmpty()) {
-            cbCards.setValue(cards.get(cards.size() - 1));
-        }
-
+        return lblNote;
     }
 
     public void handleAddCash(PaymentPanel paymentPanel) {
@@ -167,8 +182,23 @@ public class WalletController {
         updateNoteDropdownList();
         updateCardDropdownList();
     }
+    
+     private void updateCardDropdownList() {
+        ArrayList<String> cardIds = new ArrayList<>();
+        for (Card card : this.wallet.getCardList()) {
+            cardIds.add(card.getCardNumber());
+        }
+        ObservableList<String> cards = FXCollections.observableArrayList(cardIds);
+        this.cbCards.getItems().clear();
+        //this.cbCards.getItems().addAll(this.cbCardsInitiater());
+        this.cbCards.getItems().addAll(cards);
+        if (!cards.isEmpty()) {
+            cbCards.setValue(cards.get(cards.size() - 1));
+        }
+        //this.cbCards.getSelectionModel().selectFirst();
+    }
 
-    private void updateNoteDropdownList() {
+    public void updateNoteDropdownList() {
         ArrayList<String> noteIds = new ArrayList<>();
         for (Note note : this.wallet.getNoteList()) {
             noteIds.add(note.getNoteId());
@@ -176,9 +206,7 @@ public class WalletController {
         ObservableList<String> notes = FXCollections.observableArrayList(noteIds);
         this.cbNotes.getItems().clear();
         this.cbNotes.getItems().addAll(notes);
-        if (!notes.isEmpty()) {
-            cbNotes.setValue(notes.get(notes.size() - 1));
-        }
+        this.cbNotes.setPromptText("choose a note");
 
     }
 
@@ -186,6 +214,13 @@ public class WalletController {
         this.lblCashDisplay.setText("$" + ((double)Math.round(100 *this.wallet.getCash()) / 100));
     }
 
+    public ComboBox getCbNotes() {
+        return cbNotes;
+    }
+
+    public ComboBox getCbCards() {
+        return cbCards;
+    }
 
 
 }

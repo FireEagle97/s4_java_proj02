@@ -30,11 +30,11 @@ public class App extends Application {
         GridPane gpWalletView = new GridPane();
         gpWalletView.setStyle("-fx-backgroundColor: #ff0000");
         Scene mainScene = new Scene(gpWalletView, 800, 650);
-        ComboBox cbCardDropdown = new ComboBox();
-        ComboBox cbNoteDropdown = new ComboBox();
+        //ComboBox cbCardDropdown = new ComboBox();
+        //ComboBox cbNoteDropdown = new ComboBox();
         Label lblCashDisplay = new Label("$69.00");
         lblCashDisplay.setStyle("-fx-text-fill: #007700; -fx-font-size: 300%;");
-        WalletController walletC = new WalletController(cbCardDropdown, cbNoteDropdown, lblCashDisplay);
+        WalletController walletC = new WalletController(lblCashDisplay);
         NoteWindow noteCreationScene = new NoteWindow(stage, mainScene, walletC);
         CardWindow cardCreationScene = new CardWindow(stage, mainScene, walletC);
         PaymentPanel paymentPanel = new PaymentPanel(walletC, lblCashDisplay);
@@ -62,7 +62,18 @@ public class App extends Application {
             stage.setScene(cardCreationScene.getScene());
         });
 
-        cbCardDropdown.setOnAction(evt -> walletC.handleViewCard(lblCardDescription));
+        walletC.getCbCards().setOnAction(evt ->{
+                Pane cardView = new Pane();
+                Button deleteNote = new Button("Delete this card");
+                cardView.getChildren().add(walletC.handleViewCard(lblCardDescription));
+                cardView.getChildren().add(deleteNote);
+                Stage stage1 = new Stage();
+                Scene scene1 = new Scene(cardView,300,150);
+                stage1.setTitle("Show Card");
+                stage1.setScene(scene1);
+                stage1.show();
+            
+        });
 
 
         //NOTES PANE
@@ -75,8 +86,7 @@ public class App extends Application {
         TextField tfNoteIdInput = new TextField();
         hbNoteDeletionPane.getChildren().addAll(tfNoteIdInput, btnDeleteNote);
         tfNoteIdInput.setPromptText("Enter Note ID in list");
-
-
+        
         Label lblNoteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
         lblNoteDescription.setWrapText(true);
         Button btnAddNote = new Button("Add Note");
@@ -85,6 +95,7 @@ public class App extends Application {
             lblNoteDescription.setText("");
             walletC.handleNoteDeletion(tfNoteIdInput);
         });
+<<<<<<< HEAD
         cbNoteDropdown.setOnAction(evt -> walletC.handleViewNote(lblNoteDescription));
         //Dany code
         Button btnShowNotes = new Button("show Notes");
@@ -100,7 +111,26 @@ public class App extends Application {
             stage1.setScene(scene1);
             stage1.show();
             
+=======
+        walletC.getCbNotes().setOnAction(evt -> {
+                Pane noteView = new Pane();
+                Button deleteNote = new Button("Delete this note");
+                noteView.getChildren().add(walletC.handleViewNote(lblNoteDescription));
+                //walletC.updateNoteDropdownList();
+                noteView.getChildren().add(deleteNote);
+                Stage stage1 = new Stage();
+                Scene scene1 = new Scene(noteView,300,150);
+                stage1.setTitle("Show Note");
+                stage1.setScene(scene1);
+                stage1.show();
+                stage1.setOnCloseRequest(evt1 -> {
+                    walletC.updateNoteDropdownList();
+                });
+                
+>>>>>>> 80615144aa866f8a9dd9ea07d9f311219f1e2b32
         });
+        
+        
 
         //PAYMENT WINDOW
 
@@ -129,9 +159,9 @@ public class App extends Application {
         btnLoadWallet.setOnAction(evt -> walletC.handleLoadWallet());
 
 
-        vbNotesPanel.getChildren().addAll(lblNoteHeader, cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane);
-        vbNotesPanel.getChildren().add(btnShowNotes);
-        vbCardsPanel.getChildren().addAll(lblCardsHeader, cbCardDropdown, lblCardDescription, btnAddCard, hbCardDeletionPane);
+        vbNotesPanel.getChildren().addAll(lblNoteHeader, walletC.getCbNotes(), lblNoteDescription, btnAddNote, hbNoteDeletionPane);
+        //vbNotesPanel.getChildren().add(btnShowNotes);
+        vbCardsPanel.getChildren().addAll(lblCardsHeader, walletC.getCbCards(), lblCardDescription, btnAddCard, hbCardDeletionPane);
         gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);
         gpWalletView.add(paymentPanel.getVbPayment(), 0, 1);

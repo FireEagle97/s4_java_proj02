@@ -79,6 +79,16 @@ public class EWallet {
         }
         return -1;
     }
+    
+    public int findCardByNumber(String cardNumberInput) {
+        for (int i = 0; i < this.cardList.size(); i++) {
+            if (this.cardList.get(i).getCardNumber().equals(cardNumberInput)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 
     public void addCard(Card newCard) {
         if (this.cardList.size() >= 10) {
@@ -86,6 +96,7 @@ public class EWallet {
         }
         this.cardList.add(newCard);
     }
+    
 
     public void deleteCard(int index) {
         this.cardList.remove(index);
@@ -96,15 +107,7 @@ public class EWallet {
     }
 
 
-    public int findCardByNumber(String cardNumberInput) {
-        for (int i = 0; i < this.cardList.size(); i++) {
-            if (this.cardList.get(i).getCardNumber().equals(cardNumberInput)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
+    
 
 
 
