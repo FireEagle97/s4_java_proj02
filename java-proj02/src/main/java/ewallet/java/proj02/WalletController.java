@@ -8,7 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,19 +23,14 @@ public class WalletController {
 
 
 
-    public WalletController(Label lblCashDisplay) {
+    public WalletController() {
         this.wallet = new EWallet(new ArrayList<Card>(), new ArrayList<Note>(), 0);
-        //ComboBox cbCardDropdown = new ComboBox();
-        //ComboBox cbNoteDropdown = new ComboBox();
-        //Label lblCashDisplay = new Label("$69.00");
+        this.lblCashDisplay = new Label("$0.0");
         this.name = "john";
         this.cbCards = new ComboBox();
         this.cbCards.setPromptText("choose a card");
         this.cbNotes = new ComboBox();
         this.cbNotes.setPromptText("choose a note");
-        //this.cbNotes.getSelectionModel().selectFirst();
-        //this.cbCards.getSelectionModel().selectFirst();
-        this.lblCashDisplay = lblCashDisplay;
         this.storedWallet = new StoredWallet();
         updateCashDisplay(); //set the display initally
     }
@@ -89,14 +83,14 @@ public class WalletController {
 
     }
 
-    public void handleNoteDeletion(TextField tfNoteIdInput) {
-        this.wallet.deleteNote(tfNoteIdInput.getText());
+    public void handleNoteDeletion(String noteIndex) {
+        this.wallet.deleteNote(noteIndex);
         updateNoteDropdownList();
         //TODO Add functionality when an existing note could not be found, display message
     }
 
-    public void handleCardDeletion(TextField tfCardIdInput) {
-        this.wallet.deleteCard(tfCardIdInput.getText());
+    public void handleCardDeletion(String noteIndex) {
+        this.wallet.deleteCard(noteIndex);
         updateCardDropdownList();
         //TODO Add functionality when an existing note could not be found, display message
     }
@@ -121,12 +115,13 @@ public class WalletController {
 
         if (!this.cbNotes.getItems().isEmpty()) {
             String selectedNoteId = this.cbNotes.getValue().toString();
-            Note selectedNote = wallet.getNoteList().get(wallet.findNoteById(selectedNoteId));
-            lblNote.setText(selectedNote.toString());
-            
-//            else{
-//                lblNote.setText("");
-//            }
+            if(! selectedNoteId.equals("choose a card")){
+                Note selectedNote = wallet.getNoteList().get(wallet.findNoteById(selectedNoteId));
+                lblNote.setText(selectedNote.toString());
+            }
+            else{
+                lblNote.setText("");
+            }
         }
         return lblNote;
     }
@@ -183,19 +178,16 @@ public class WalletController {
         updateCardDropdownList();
     }
     
-     private void updateCardDropdownList() {
+     public void updateCardDropdownList() {
         ArrayList<String> cardIds = new ArrayList<>();
         for (Card card : this.wallet.getCardList()) {
             cardIds.add(card.getCardNumber());
         }
         ObservableList<String> cards = FXCollections.observableArrayList(cardIds);
         this.cbCards.getItems().clear();
-        //this.cbCards.getItems().addAll(this.cbCardsInitiater());
         this.cbCards.getItems().addAll(cards);
-        if (!cards.isEmpty()) {
-            cbCards.setValue(cards.get(cards.size() - 1));
-        }
-        //this.cbCards.getSelectionModel().selectFirst();
+        this.cbNotes.setPromptText("choose a card");
+
     }
 
     public void updateNoteDropdownList() {
@@ -207,7 +199,6 @@ public class WalletController {
         this.cbNotes.getItems().clear();
         this.cbNotes.getItems().addAll(notes);
         this.cbNotes.setPromptText("choose a note");
-
     }
 
     private void updateCashDisplay() {
@@ -222,5 +213,7 @@ public class WalletController {
         return cbCards;
     }
 
-
+    public Label getLblCashDisplay(){
+        return lblCashDisplay;
+    }
 }

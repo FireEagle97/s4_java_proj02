@@ -9,5 +9,5 @@ package ewallet.java.proj02;/*
  */
 public interface Observer {
     
-    public void update(CreditCard card);
+    public void update(Card card);
 }
