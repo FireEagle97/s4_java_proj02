@@ -42,7 +42,11 @@ public class CreditCard extends PaymentCard {
     public int getAmountOwed() {
         return amountOwed;
     }
-
+    
+    public void setAmountOwed(int amount){
+        this.amountOwed=amount;
+    }
+    
     @Override
     public String toString() {
         return super.toString() + "\n" + "TYPE: CREDIT";

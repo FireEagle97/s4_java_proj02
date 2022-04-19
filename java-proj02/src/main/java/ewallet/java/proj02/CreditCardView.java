@@ -14,15 +14,11 @@ import java.util.ArrayList;
 public class CreditCardView implements Observer {
 
     @Override
-    public String update(Object card){
-            //card = (CreditCard) card;
-//            if((CreditCard)card.getAmountOwed()){
-//                return card.notifyUser();
-//            }
-//            else{
-//                return "testing observer";
-//            }
-        return "testing observer";
+    public void update(CreditCard card){
+            if(card.getAmountOwed() > 0.5*card.getLimit()){
+            System.out.println(card.notifyUser());
+        }
+
     }
 
 }

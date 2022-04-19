@@ -24,6 +24,7 @@ public class PaymentPanel {
         this.walletC = walletC;
 
         this.vbPayment = new VBox();
+        this.vbPayment.setSpacing(5);
         this.tfCardNumberInput = new TextField();
         this.tfPayCardAmount = new TextField();
         this.tfPayCash = new TextField();
@@ -41,12 +42,17 @@ public class PaymentPanel {
         this.lblError = new Label();
         Label lblNotification = new Label("<Notification text eg. 50% limit reached>");
         //Label lblNotification = new Label(CreditCardView.update());
-        HBox hbCardPayment = new HBox(this.tfCardNumberInput, this.tfPayCardAmount, btnCardPay);
-        HBox hbCashPayment = new HBox(this.tfPayCash, btnCashPay);
-        HBox hbAddCashBox = new HBox(this.tfAddCash, btnAddCash);
+        HBox hbCardPayment = new HBox(this.tfCardNumberInput, this.tfPayCardAmount);
+        VBox vbCardPayment = new VBox(hbCardPayment,btnCardPay);
+        VBox vbCashPayment = new VBox(this.tfPayCash, btnCashPay);
+        VBox vbAddCashBox = new VBox(this.tfAddCash, btnAddCash);
+        hbCardPayment.setSpacing(20);
+        vbCardPayment.setSpacing(10);
+        vbCashPayment.setSpacing(10);
+        vbAddCashBox.setSpacing(10);
 
-        this.vbPayment.getChildren().addAll(lblCashDisplay, hbAddCashBox, hbCardPayment,
-                hbCashPayment, lblError, lblNotification);
+        this.vbPayment.getChildren().addAll(lblCashDisplay, vbAddCashBox, vbCardPayment,
+                vbCashPayment, lblError, lblNotification);
 
         btnAddCash.setOnAction(evt  -> this.walletC.handleAddCash(this));
         btnCashPay.setOnAction(evt -> this.walletC.handlePayWithCash(this));
