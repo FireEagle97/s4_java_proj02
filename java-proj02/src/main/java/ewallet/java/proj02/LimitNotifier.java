@@ -24,7 +24,7 @@ public class LimitNotifier implements Subject {
     }
     
     
-    public void notifyUpdate(Card card){
+    public void notifyUpdate(CreditCard card){
         for(Observer o: observers) {
             o.update(card);
         }

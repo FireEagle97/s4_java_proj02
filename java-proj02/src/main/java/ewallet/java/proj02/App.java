@@ -102,6 +102,8 @@ public class App extends Application {
 //            lblNoteDescription.setText("");
 //            walletC.handleNoteDeletion(tfNoteIdInput);
 //        });
+
+
         walletC.getCbNotes().setOnAction(evt -> {
                 Pane noteView = new Pane();
                 Button btnDeleteNote1 = new Button("Delete this note");

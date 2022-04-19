@@ -1,4 +1,8 @@
-package ewallet.java.proj02;/*
+package ewallet.java.proj02;
+
+import java.util.ArrayList;
+
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -9,5 +13,5 @@ package ewallet.java.proj02;/*
  */
 public interface Observer {
     
-    public void update(Card card);
+    public String update(CreditCard card);
 }

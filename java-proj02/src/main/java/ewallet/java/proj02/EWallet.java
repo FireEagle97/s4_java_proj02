@@ -95,7 +95,7 @@ public class EWallet {
                 CreditCardView view = new CreditCardView();
                 LimitNotifier notifier = new LimitNotifier();
                 notifier.attach(view);
-                notifier.notifyUpdate(card);
+                notifier.notifyUpdate((CreditCard)card);
             } 
         }
     }
