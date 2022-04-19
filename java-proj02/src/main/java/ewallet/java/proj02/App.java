@@ -95,23 +95,7 @@ public class App extends Application {
             lblNoteDescription.setText("");
             walletC.handleNoteDeletion(tfNoteIdInput);
         });
-<<<<<<< HEAD
-        cbNoteDropdown.setOnAction(evt -> walletC.handleViewNote(lblNoteDescription));
-        //Dany code
-        Button btnShowNotes = new Button("show Notes");
-        btnShowNotes.setOnAction(evt -> {
-            Pane notesPane = new Pane();
-            ListView notesList = new ListView();
-            notesList.getItems().add("item 1");
-            notesList.getItems().add("item 2");
-            notesPane.getChildren().add(notesList);
-            Stage stage1 = new Stage();
-            Scene scene1 = new Scene(notesPane,200,200);
-            stage1.setTitle("Show Notes");
-            stage1.setScene(scene1);
-            stage1.show();
-            
-=======
+        
         walletC.getCbNotes().setOnAction(evt -> {
                 Pane noteView = new Pane();
                 Button deleteNote = new Button("Delete this note");
@@ -127,7 +111,6 @@ public class App extends Application {
                     walletC.updateNoteDropdownList();
                 });
                 
->>>>>>> 80615144aa866f8a9dd9ea07d9f311219f1e2b32
         });
         
         
