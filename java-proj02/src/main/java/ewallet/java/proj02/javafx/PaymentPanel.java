@@ -1,5 +1,6 @@
 package ewallet.java.proj02.javafx;
 
+import ewallet.java.proj02.CreditCardView;
 import ewallet.java.proj02.WalletController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,6 +40,7 @@ public class PaymentPanel {
 
         this.lblError = new Label();
         Label lblNotification = new Label("<Notification text eg. 50% limit reached>");
+        //Label lblNotification = new Label(CreditCardView.update());
         HBox hbCardPayment = new HBox(this.tfCardNumberInput, this.tfPayCardAmount, btnCardPay);
         HBox hbCashPayment = new HBox(this.tfPayCash, btnCashPay);
         HBox hbAddCashBox = new HBox(this.tfAddCash, btnAddCash);

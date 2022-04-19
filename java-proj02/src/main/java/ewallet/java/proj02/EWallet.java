@@ -88,7 +88,17 @@ public class EWallet {
         }
         return -1;
     }
-
+    
+    public void setObservers(){
+        for (Card card:this.cardList){
+            if(card instanceof CreditCard){
+                CreditCardView view = new CreditCardView();
+                LimitNotifier notifier = new LimitNotifier();
+                notifier.attach(view);
+                notifier.notifyUpdate((CreditCard)card);
+            } 
+        }
+    }
 
     public void addCard(Card newCard) {
         if (this.cardList.size() >= 10) {

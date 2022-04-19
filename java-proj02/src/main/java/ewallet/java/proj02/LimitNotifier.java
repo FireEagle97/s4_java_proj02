@@ -23,10 +23,11 @@ public class LimitNotifier implements Subject {
         observers.remove(o);
     }
     
+    
     @Override
-    public void notifyUpdate(CreditCard card){
+    public void notifyUpdate(Object card){
         for(Observer o: observers) {
-            o.update(card);
+            o.update((CreditCard) card);
         }
     }
 }
