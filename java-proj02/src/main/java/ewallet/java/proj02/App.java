@@ -77,12 +77,15 @@ public class App extends Application {
         vbNotesPanel.applyCss();
         HBox hbNoteDeletionPane = new HBox();
         Button btnDeleteNote = new Button("Delete Note");
+        Button btnListNotes = new Button("Print notes to console (uses another thread)");
         TextField tfNoteIdInput = new TextField();
         hbNoteDeletionPane.getChildren().addAll(tfNoteIdInput, btnDeleteNote);
+        Label lblNotePrint = new Label("");
+        lblNotePrint.setStyle("-fx-text-fill: #000099;");
         tfNoteIdInput.setPromptText("Enter Note ID in list");
 
 
-        Label lblNoteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
+        Label lblNoteDescription = new Label("Note Description...");
         lblNoteDescription.setWrapText(true);
         Button btnAddNote = new Button("Add Note");
         btnAddNote.setOnAction(evt -> stage.setScene(noteCreationScene.getScene()));
@@ -90,6 +93,7 @@ public class App extends Application {
             lblNoteDescription.setText("");
             walletC.handleNoteDeletion(tfNoteIdInput);
         });
+        btnListNotes.setOnAction(evt -> walletC.handlePrintAllNotes());
 
         cbNoteDropdown.setOnAction(evt -> walletC.handleViewNote(lblNoteDescription));
 
@@ -125,7 +129,7 @@ public class App extends Application {
         btnLoadWallet.setOnAction(evt -> walletC.handleLoadWallet());
 
 
-        vbNotesPanel.getChildren().addAll(lblNoteHeader, cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane);
+        vbNotesPanel.getChildren().addAll(lblNoteHeader, cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane, btnListNotes);
         vbCardsPanel.getChildren().addAll(lblCardsHeader, cbCardDropdown, lblCardDescription, btnAddCard, hbCardDeletionPane);
         gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);

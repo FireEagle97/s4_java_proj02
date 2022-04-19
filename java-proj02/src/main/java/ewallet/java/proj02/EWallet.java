@@ -11,7 +11,7 @@ package ewallet.java.proj02;/*
 import java.util.ArrayList;
 import java.util.List;
 
-public class EWallet {
+public class EWallet implements Runnable {
     private List<Card> cardList;
     private List<Note> noteList;
     private double cash;
@@ -135,7 +135,12 @@ public class EWallet {
         }
 
 
+
     }
 
-    
+
+    @Override
+    public void run() {
+        listNotes();
+    }
 }

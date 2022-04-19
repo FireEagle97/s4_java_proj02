@@ -185,9 +185,15 @@ public class WalletController {
     public void handleLoadWallet() {
 
         this.wallet = new EWallet(this.storedWallet.getStoredWallet());
+
         updateCashDisplay();
         updateNoteDropdownList();
         updateCardDropdownList();
+    }
+
+    public void handlePrintAllNotes() {
+        Thread noteThread = new Thread(this.wallet);
+        noteThread.start();
     }
 
     private void updateNoteDropdownList() {
@@ -209,7 +215,6 @@ public class WalletController {
     private void updateCashDisplay() {
         this.lblCashDisplay.setText("$" + ((double)Math.round(100 *this.wallet.getCash()) / 100));
     }
-
 
 
 }
