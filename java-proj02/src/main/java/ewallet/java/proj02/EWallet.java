@@ -69,7 +69,10 @@ public class EWallet {
 
 
     public void deleteNote(String noteId){
-        this.noteList.remove(findNoteById(noteId));
+        int index = findNoteById(noteId);
+        if (index != -1) {
+            this.noteList.remove(index);
+        }
     }
 
     public int findNoteById(String noteId) {
@@ -93,7 +96,10 @@ public class EWallet {
     }
 
     public void deleteCard(String cardNumberInput) {
-        this.cardList.remove(findCardByNumber(cardNumberInput));
+        int index = findCardByNumber(cardNumberInput);
+        if (index != -1) {
+            this.cardList.remove(index);
+        }
     }
 
 
@@ -120,9 +126,6 @@ public class EWallet {
 
         Card selectedCard = this.cardList.get(cardIndex);
 
-        if (selectedCard == null) {
-            throw new IllegalArgumentException("Cannot find card");
-        }
 
         if (selectedCard instanceof PaymentCard) {
             boolean isSuccessful = ((PaymentCard) selectedCard).pay((int)amount);

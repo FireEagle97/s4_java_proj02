@@ -121,8 +121,8 @@ public class PaymentCardJUnit {
     @Test
     public void testNotEquals() {
         Card paymentCard = new DebitCard("222", 1500, 2, 2025, "John Doe", "11223344");
-        Card paymentCard2 = new PersonalCard("John Doe", "11223344", 2020, 4, "Fishing License");
-        assertEquals(false, paymentCard.equals(paymentCard2));
+        Card personalCard = new PersonalCard("John Doe", "11223344", 2020, 4, "Fishing License");
+        assertEquals(false, paymentCard.equals(personalCard));
     }
 
 }
