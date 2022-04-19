@@ -13,5 +13,5 @@ import java.util.ArrayList;
  */
 public interface Observer {
     
-    public String update(CreditCard card);
+    public String update(Object card);
 }

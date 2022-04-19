@@ -13,18 +13,16 @@ import java.util.ArrayList;
  */
 public class CreditCardView implements Observer {
 
-    public static String update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
     @Override
-    public String update(CreditCard card){
+    public String update(Object card){
             //card = (CreditCard) card;
-            if(card.getAmountOwed() > card.getLimit()){
-                return card.notifyUser();
-            }
-            else{
-                return "testing observer";
-            }
+//            if((CreditCard)card.getAmountOwed()){
+//                return card.notifyUser();
+//            }
+//            else{
+//                return "testing observer";
+//            }
+        return "testing observer";
     }
+
 }
