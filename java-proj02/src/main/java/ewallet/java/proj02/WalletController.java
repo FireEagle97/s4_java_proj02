@@ -125,6 +125,10 @@ public class WalletController {
         double cashAmount = 0;
         try {
             cashAmount = Double.parseDouble(paymentPanel.getAddCashInput());
+            if (cashAmount < 0) {
+                paymentPanel.setErrorMessage("Amount cannot be negative");
+                return;
+            }
             this.wallet.setCash(this.wallet.getCash() + cashAmount);
             paymentPanel.setErrorMessage("");
             updateCashDisplay();
@@ -136,6 +140,10 @@ public class WalletController {
     public void handlePayWithCash(PaymentPanel paymentPanel) {
         double payAmount = 0;
         payAmount = Double.parseDouble(paymentPanel.getPayCashInput());
+        if (payAmount < 0) {
+            paymentPanel.setErrorMessage("Amount cannot be negative");
+            return;
+        }
         if (payAmount <= this.wallet.getCash()) {
             this.wallet.setCash(this.wallet.getCash() - payAmount);
             paymentPanel.setErrorMessage("");
@@ -150,6 +158,10 @@ public class WalletController {
         payAmount = Double.parseDouble(paymentPanel.getPayCardInput());
         String cardNumberInput = paymentPanel.getCardNumberInput();
         try {
+            if (payAmount < 0) {
+                paymentPanel.setErrorMessage("Amount cannot be negative");
+                return;
+            }
             boolean isSuccessful = this.wallet.makePayment(cardNumberInput, payAmount);
             if (!isSuccessful) {
                 paymentPanel.setErrorMessage("Not enough funds; transaction declined");

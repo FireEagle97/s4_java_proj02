@@ -103,7 +103,7 @@ public class App extends Application {
         FileChooser picFileChooser = new FileChooser();
         picFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.bmp"));
         picFileChooser.setTitle("Choose Akshan Picture:");
-        Button btnChooseFile = new Button("chooseFile");
+        Button btnChooseFile = new Button("Choose a Wallet Picture");
         btnChooseFile.setOnAction(e -> {
             File walletPicture = picFileChooser.showOpenDialog(stage);
             if (walletPicture != null) {
