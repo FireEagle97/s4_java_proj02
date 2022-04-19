@@ -7,6 +7,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
+/**
+ * This represents a window for creating notes as well as the buttons to go back and perform adding a note
+ */
+
 public class NoteWindow {
 
     private Scene scene;

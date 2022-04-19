@@ -7,7 +7,7 @@ package ewallet.java.proj02;
  * and open the template in the editor.
  */
 
-/**
+/**Represent a credit card that is a Card and a Payment card. when the card is used the amount owed is increased and cannot go above the credit limit
  *
  * @author 1811257
  */

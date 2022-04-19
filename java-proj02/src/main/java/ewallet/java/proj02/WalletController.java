@@ -13,6 +13,11 @@ import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This acts as a controller class for the E-Wallet app. This controls the events that happen following the click of
+ * buttons as well as updating the combobox list of cards and notes. This manipulates the ewallet object as actions are
+ * handled.
+ */
 public class WalletController {
 
     private EWallet wallet;

@@ -9,6 +9,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * This represents a window for creating cards as well as the buttons to go back and perform adding a card
+ * Users can choose the type of card to create (either debit/credit/personal) and display all the necessary fields.
+ */
 public class CardWindow {
 
     private Scene scene;

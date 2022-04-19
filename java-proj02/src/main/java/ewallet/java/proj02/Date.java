@@ -6,7 +6,7 @@ package ewallet.java.proj02;/*
 
 import java.util.Objects;
 
-/**
+/**Represents an expiry date for this specific e-wallet project.
  *
  * @author 1811257
  */

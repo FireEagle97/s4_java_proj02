@@ -4,7 +4,7 @@ package ewallet.java.proj02;/*
  * and open the template in the editor.
  */
 
-/**
+/**Represents a digital wallet. Can store up to 10 cards of any type, 10 notes, and stores cash.
  *
  * @author 1811257
  */

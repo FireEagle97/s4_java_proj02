@@ -6,7 +6,7 @@ package ewallet.java.proj02;/*
 
 import java.util.Objects;
 
-/**
+/**Represent a Card containing a Card Number and a card holder name
  *
  * @author 1811257
  */

@@ -4,7 +4,7 @@ package ewallet.java.proj02;/*
  * and open the template in the editor.
  */
 
-/**
+/**Represent a card used for payment. Instances must be specific cards inheriting from this.
  *
  * @author 1811257
  */

@@ -4,7 +4,7 @@ package ewallet.java.proj02;/*
  * and open the template in the editor.
  */
 
-/**
+/**Represents a note. Notes contain an identifier id, a date of creation and the body of the note.
  *
  * @author 1811257
  */
