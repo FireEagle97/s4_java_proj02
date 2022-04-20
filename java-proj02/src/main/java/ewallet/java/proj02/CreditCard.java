@@ -15,11 +15,9 @@ public class CreditCard extends PaymentCard {
 
     private int amountOwed;
     private String message;
-    private String type;
     
     public CreditCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
         super(securityCode,limit,expiryMonth,expiryYear,cardHolderName,cardNumber);
-        this.type = "Credit";
         this.message = "You exceeded the 50% of the limit";
     }
 
@@ -49,6 +47,7 @@ public class CreditCard extends PaymentCard {
     
     @Override
     public String toString() {
-        return super.toString() + "\n" + "TYPE: CREDIT";
+        return super.toString() + "\n"
+                + "TYPE: CREDIT";
     }
 }

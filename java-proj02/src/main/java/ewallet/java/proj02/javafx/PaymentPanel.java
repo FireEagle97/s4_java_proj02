@@ -54,7 +54,7 @@ public class PaymentPanel {
         this.vbPayment.getChildren().addAll(lblCashDisplay, vbAddCashBox, vbCardPayment,
                 vbCashPayment, lblError, lblNotification);
 
-        btnAddCash.setOnAction(evt  -> this.walletC.handleAddCash(this));
+        btnAddCash.setOnAction(evt  ->this.walletC.handleAddCash(this));
         btnCashPay.setOnAction(evt -> this.walletC.handlePayWithCash(this));
         btnCardPay.setOnAction(evt -> this.walletC.handlePayWithCard(this));
     }

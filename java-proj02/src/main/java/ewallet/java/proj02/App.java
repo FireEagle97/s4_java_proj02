@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 
 import java.io.File;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 
 
 /**
@@ -72,17 +73,21 @@ public class App extends Application {
         });
 
         walletC.getCbCards().setOnAction(evt ->{
-                Pane cardView = new Pane();
+                StackPane cardView = new StackPane();
+                cardView.setPadding(new Insets(10, 10, 10, 10));
                 Button btndeleteCard = new Button("Delete this card");
-                cardView.getChildren().add(walletC.handleViewCard(lblCardDescription));
-                cardView.getChildren().add(btndeleteCard);
+                VBox vbCardInfo = new VBox();
+                vbCardInfo.setSpacing(10);
+                vbCardInfo.getChildren().addAll(walletC.handleViewCard(lblCardDescription),btndeleteCard);
+                cardView.getChildren().add(vbCardInfo);
+                cardView.setAlignment(vbCardInfo,Pos.CENTER);
                 Stage stage1 = new Stage();
                 btndeleteCard.setOnAction(evt1 -> {
                     stage1.close();
                     lblCardDescription.setText("");
                     walletC.handleCardDeletion((String)walletC.getCbCards().getValue());
                 });
-                Scene scene1 = new Scene(cardView,300,150);
+                Scene scene1 = new Scene(cardView,180,200);
                 stage1.setTitle("Show Card");
                 stage1.setScene(scene1);
                 stage1.show();
@@ -98,40 +103,31 @@ public class App extends Application {
         vbNotesPanel.setSpacing(10);
         vbNotesPanel.applyCss();
         HBox hbNoteDeletionPane = new HBox();
-        //Button btnDeleteNote = new Button("Delete Note");
-        //TextField tfNoteIdInput = new TextField();
-       // hbNoteDeletionPane.getChildren().addAll(tfNoteIdInput, btnDeleteNote);
-        //tfNoteIdInput.setPromptText("Enter Note ID in list");
         Label lblNoteDescription = new Label("");
-        
-        //Label lblNoteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
         lblNoteDescription.setWrapText(true);
         Button btnAddNote = new Button("Add Note");
         btnAddNote.setOnAction(evt -> stage.setScene(noteCreationScene.getScene()));
-//        btnDeleteNote.setOnAction(e -> {
-//            lblNoteDescription.setText("");
-//            walletC.handleNoteDeletion(tfNoteIdInput);
-//        });
-
 
         walletC.getCbNotes().setOnAction(evt -> {
-                Pane noteView = new Pane();
+                StackPane noteView = new StackPane();
+                noteView.setPadding(new Insets(10, 10, 10, 10));
+                VBox vbNoteInfo = new VBox();
+                vbNoteInfo.setSpacing(10);
                 Button btnDeleteNote1 = new Button("Delete this note");
-                noteView.getChildren().add(walletC.handleViewNote(lblNoteDescription));
-                noteView.getChildren().add(btnDeleteNote1);
+                vbNoteInfo.getChildren().addAll(walletC.handleViewNote(lblNoteDescription), btnDeleteNote1);
+                noteView.getChildren().add(vbNoteInfo);
+                noteView.setAlignment(vbNoteInfo,Pos.CENTER);
                 Stage stage1 = new Stage();
                 btnDeleteNote1.setOnAction(evt1 -> {
                     stage1.close();
                     lblNoteDescription.setText("");
                     walletC.handleNoteDeletion((String)walletC.getCbNotes().getValue());
                 });
-                Scene scene1 = new Scene(noteView,300,150);
+                Scene scene1 = new Scene(noteView,250,150);
                 stage1.setTitle("Show Note");
                 stage1.setScene(scene1);
                 stage1.show();
-//                stage1.setOnCloseRequest(evt1 -> {
-//                    walletC.updateNoteDropdownList();
-//                });
+
                 
         });
         

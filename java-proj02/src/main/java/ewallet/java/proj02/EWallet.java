@@ -90,6 +90,7 @@ public class EWallet {
     }
     
     public void setObservers(){
+        
         for (Card card:this.cardList){
             if(card instanceof CreditCard){
                 CreditCardView view = new CreditCardView();

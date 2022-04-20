@@ -25,6 +25,7 @@ public class WalletController {
 
     public WalletController() {
         this.wallet = new EWallet(new ArrayList<Card>(), new ArrayList<Note>(), 0);
+        this.wallet.setObservers();
         this.lblCashDisplay = new Label("$0.0");
         this.name = "john";
         this.cbCards = new ComboBox();
@@ -68,6 +69,7 @@ public class WalletController {
             System.out.println(x);
         }
         updateCardDropdownList();
+        this.wallet.setObservers();
     }
 
     public void handleNoteCreationInput(NoteWindow noteCreationPane) {

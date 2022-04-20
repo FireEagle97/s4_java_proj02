@@ -12,14 +12,11 @@ public class DebitCard extends PaymentCard {
     private String securityCode;
     private int limit;
     private Date expiryDate;
-    private String type;
     private String message;
     
     public DebitCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
         super(securityCode, limit, expiryMonth, expiryYear, cardHolderName, cardNumber);
         this.message = "Your balance is less or equal to 30$";
-        this.type="Debit";
-        
     }
 
 
@@ -72,6 +69,7 @@ public class DebitCard extends PaymentCard {
                 +"cardNumber: " + this.getCardNumber() + "\n"
                 +"securityCode: " + securityCode + "\n"
                 + "limit: " + limit + "\n"
-                + "expiryDate: " + expiryDate + type +":DEBIT";
+                + "expiryDate: " + expiryDate + "\n"
+                + "Type:DEBIT";
     }
 }

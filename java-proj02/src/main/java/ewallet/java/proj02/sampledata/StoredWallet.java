@@ -10,10 +10,10 @@ public class StoredWallet {
 
     public StoredWallet() {
         List<Card> cards = new ArrayList<>();
-        cards.add(new DebitCard("222", 500, 4, 2028, "john", "00000001"));
-        cards.add(new CreditCard("214", 1000, 4, 2028, "john", "00000002"));
-        cards.add(new CreditCard("544", 413, 1, 2024, "john", "00000003"));
-        cards.add(new DebitCard("372", 300, 6, 2024, "john", "00000004"));
+        cards.add(new DebitCard("222", 500, 4, 2028, "john", "1"));
+        cards.add(new CreditCard("214", 1000, 4, 2028, "john", "2"));
+        cards.add(new CreditCard("544", 413, 1, 2024, "john", "3"));
+        cards.add(new DebitCard("372", 300, 6, 2024, "john", "4"));
         cards.add(new PersonalCard("john", "00010001", 12, 2030, "License"));
         cards.add(new PersonalCard("john", "00010002", 9, 2027, "Health Card"));
         cards.add(new PersonalCard("john", "00010003", 2, 2022, "Dawson ID card"));
