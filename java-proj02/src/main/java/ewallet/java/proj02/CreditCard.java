@@ -28,7 +28,7 @@ public class CreditCard extends PaymentCard {
         this.message = "You exceeded the 50% of the limit";
     }
 
-
+    
     public String notifyUser() {
             return this.message;
     }
@@ -55,6 +55,8 @@ public class CreditCard extends PaymentCard {
     @Override
     public String toString() {
         return super.toString() + "\n"
-                + "TYPE: CREDIT";
+                + "TYPE: CREDIT" + "\n"
+                + "amountOwed:" + getAmountOwed();
+                
     }
 }

@@ -1,6 +1,5 @@
 package ewallet.java.proj02.javafx;
 
-import ewallet.java.proj02.CreditCardView;
 import ewallet.java.proj02.WalletController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,14 +17,11 @@ public class PaymentPanel {
         private TextField tfPayCardAmount;
         private TextField tfPayCash;
         private TextField tfAddCash;
-
         private Label lblError;
-
         private WalletController walletC;
 
     public PaymentPanel(WalletController walletC, Label lblCashDisplay) {
         this.walletC = walletC;
-
         this.vbPayment = new VBox();
         this.vbPayment.setSpacing(5);
         this.tfCardNumberInput = new TextField();

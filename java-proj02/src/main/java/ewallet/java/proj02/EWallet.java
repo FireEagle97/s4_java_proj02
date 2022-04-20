@@ -15,6 +15,7 @@ public class EWallet implements Runnable {
     private List<Card> cardList;
     private List<Note> noteList;
     private double cash;
+    private LimitNotifier notifier = new LimitNotifier();
 
     public EWallet(List<Card> cardList, List<Note> noteList, double cash) {
         this.cardList = cardList;
@@ -99,13 +100,10 @@ public class EWallet implements Runnable {
     }
     
     public void setObservers(){
-        
         for (Card card:this.cardList){
             if(card instanceof CreditCard){
                 CreditCardView view = new CreditCardView();
-                LimitNotifier notifier = new LimitNotifier();
-                notifier.attach(view);
-                notifier.notifyUpdate((CreditCard)card);
+                notifier.attach(view); 
             } 
         }
     }
@@ -138,7 +136,8 @@ public class EWallet implements Runnable {
         }
 
         Card selectedCard = this.cardList.get(cardIndex);
-
+        notifier.notifyUpdate((CreditCard)selectedCard);
+        
 
         if (selectedCard instanceof PaymentCard) {
             boolean isSuccessful = ((PaymentCard) selectedCard).pay((int)amount);
@@ -146,8 +145,7 @@ public class EWallet implements Runnable {
         } else {
             throw new IllegalArgumentException("Not a payment card.");
         }
-
-
+        
 
     }
 

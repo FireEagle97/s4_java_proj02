@@ -208,7 +208,7 @@ public class WalletController {
     public void handleLoadWallet() {
 
         this.wallet = new EWallet(this.storedWallet.getStoredWallet());
-
+        this.wallet.setObservers();
         updateCashDisplay();
         updateNoteDropdownList();
         updateCardDropdownList();
