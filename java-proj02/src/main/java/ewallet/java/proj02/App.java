@@ -6,16 +6,13 @@ import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.control.ListView;
 import javafx.util.Duration;
 
 
@@ -31,9 +28,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        var javaVersion = SystemInfo.javaVersion();
-        var javafxVersion = SystemInfo.javafxVersion();
-
+        
         GridPane gpWalletView = new GridPane();
         gpWalletView.setStyle("-fx-backgroundColor: #ff0000");
         Scene mainScene = new Scene(gpWalletView, 650, 450);
@@ -99,7 +94,7 @@ public class App extends Application {
         vbNotesPanel.setSpacing(10);
         vbNotesPanel.applyCss();
         Button btnListNotes = new Button("Print notes to console (uses another thread)");
-        Label lblNoteDescription = new Label("Note Description...");
+        Label lblNoteDescription = new Label("");
         lblNoteDescription.setWrapText(true);
         Button btnAddNote = new Button("Add Note");
         
@@ -165,14 +160,13 @@ public class App extends Application {
         btnLoadWallet.setOnAction(evt -> walletC.handleLoadWallet());
         
         
-        vbNotesPanel.getChildren().addAll(lblNoteHeader, btnAddNote,walletC.getCbNotes(), lblNoteDescription /*, hbNoteDeletionPane*/);
-        vbCardsPanel.getChildren().addAll(lblCardsHeader, btnAddCard,walletC.getCbCards(), lblCardDescription /*hbCardDeletionPane*/);
+        vbNotesPanel.getChildren().addAll(lblNoteHeader, btnAddNote,walletC.getCbNotes(), lblNoteDescription);
+        vbCardsPanel.getChildren().addAll(lblCardsHeader, btnAddCard,walletC.getCbCards(), lblCardDescription);
         hbCN.getChildren().addAll(vbNotesPanel,vbCardsPanel);
         hbLS.getChildren().addAll(btnLoadWallet,btnSaveWallet);
-        vbLeftSection.getChildren().addAll(profilePictureView, btnChooseFile, hbLS, btnListNotes);
+        vbLeftSection.getChildren().addAll(profilePictureView, btnChooseFile, btnListNotes, hbLS);
         gpWalletView.add(vbRightSection,1,0);
         gpWalletView.add(hbCN,1,1);
-        gpWalletView.add(hbLS, 0, 1);
         gpWalletView.add(paymentPanel.getVbPayment(), 1, 0);
         gpWalletView.add(vbLeftSection, 0 , 0);
         stage.setScene(mainScene);

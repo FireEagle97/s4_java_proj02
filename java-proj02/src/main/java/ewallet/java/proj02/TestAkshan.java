@@ -9,13 +9,14 @@ public class TestAkshan {
 
 
         CreditCard card3 = new CreditCard("001", 2000,04,2022, "Dany Makhoul", "123456");
-        System.out.println(card3);
+        //System.out.println(card3);
         CreditCardView view = new CreditCardView();
         
         LimitNotifier notifier = new LimitNotifier();
         notifier.attach(view);
-        card3.setAmountOwed(1500);
+        //card3.setAmountOwed(1500);
         notifier.notifyUpdate(card3);
+        card3.setAmountOwed(1500);
 
 //        List<Note> notes = new ArrayList<Note>();
 //        notes.add(new Note(10,10,2005,"heelo note"));
