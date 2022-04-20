@@ -30,7 +30,7 @@ public class App extends Application {
     public void start(Stage stage) {
         
         GridPane gpWalletView = new GridPane();
-        gpWalletView.setStyle("-fx-backgroundColor: #ff0000");
+        gpWalletView.setStyle("-fx-background-color: #d7ffd7");
         Scene mainScene = new Scene(gpWalletView, 650, 450);
         WalletController walletC = new WalletController();
         walletC.getLblCashDisplay().setStyle("-fx-text-fill: #007700; -fx-font-size: 300%;");

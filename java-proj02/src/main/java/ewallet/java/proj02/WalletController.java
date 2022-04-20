@@ -53,6 +53,7 @@ public class WalletController {
         return cardsInitiater;
     }
 
+    //handles the action of adding a card pressing the add card button
     public void handleCardCreationInput(CardWindow cardCreationPane) {
         Random rng = new Random();
         int expMonth = Integer.parseInt(cardCreationPane.getTfExpMonth());
@@ -77,6 +78,7 @@ public class WalletController {
         this.wallet.setObservers();
     }
 
+    //handles the action of adding a note pressing the add note button
     public void handleNoteCreationInput(NoteWindow noteCreationPane) {
         int month = Integer.parseInt(noteCreationPane.getMonthInput());
         int day = Integer.parseInt(noteCreationPane.getDayInput());
@@ -90,16 +92,19 @@ public class WalletController {
 
     }
 
+    //handles the action of pressing delete note
     public void handleNoteDeletion(String noteIndex) {
         this.wallet.deleteNote(noteIndex);
         updateNoteDropdownList();
     }
 
+    //handles the action of pressing delete card
     public void handleCardDeletion(String noteIndex) {
         this.wallet.deleteCard(noteIndex);
         updateCardDropdownList();
     }
 
+    //handles the action of viewing a card
     public Label handleViewCard(Label lblCard) {
 
         if (!this.cbCards.getItems().isEmpty()) {
@@ -116,6 +121,7 @@ public class WalletController {
 
     }
 
+    //handles the action to view notes
     public Label handleViewNote(Label lblNote) {
 
         if (!this.cbNotes.getItems().isEmpty()) {
@@ -131,6 +137,7 @@ public class WalletController {
         return lblNote;
     }
 
+    //handles the action of adding cash upon clicking add cash button
     public void handleAddCash(PaymentPanel paymentPanel) {
         double cashAmount = 0;
         try {
@@ -147,6 +154,7 @@ public class WalletController {
         }
     }
 
+    //handles the action of paying with cash upon clicking pay with cash button
     public void handlePayWithCash(PaymentPanel paymentPanel) {
         double payAmount = 0;
         payAmount = Double.parseDouble(paymentPanel.getPayCashInput());
@@ -163,6 +171,7 @@ public class WalletController {
         }
     }
 
+    //handles the action of paying with a card upon clicking pay with card button
     public void handlePayWithCard(PaymentPanel paymentPanel) {
         double payAmount = 0;
         payAmount = Double.parseDouble(paymentPanel.getPayCardInput());
@@ -186,12 +195,16 @@ public class WalletController {
     }
 
     //SAVE / LOAD controller
+
+    //handles the action of saving the current wallet upon clicking save wallet
     public void handleSaveWallet() {
         this.storedWallet.setStoredWallet(new EWallet(this.wallet));
         updateCashDisplay();
         updateNoteDropdownList();
         updateCashDisplay();
     }
+
+    //handles the action of loading the wallet upon clicking load wallet
     public void handleLoadWallet() {
 
         this.wallet = new EWallet(this.storedWallet.getStoredWallet());
@@ -200,7 +213,8 @@ public class WalletController {
         updateNoteDropdownList();
         updateCardDropdownList();
     }
-    
+
+    //updates the card dropdown list for the current card list of the wallet
      public void updateCardDropdownList() {
         ArrayList<String> cardIds = new ArrayList<>();
         for (Card card : this.wallet.getCardList()) {
@@ -214,11 +228,13 @@ public class WalletController {
     }
 
 
+    //example of multithreading use, just prints all the notes to the console
     public void handlePrintAllNotes() {
         Thread noteThread = new Thread(this.wallet);
         noteThread.start();
     }
 
+    //updates the note dropdown list for the current note list of the wallet
     private void updateNoteDropdownList() {
         ArrayList<String> noteIds = new ArrayList<>();
         for (Note note : this.wallet.getNoteList()) {
@@ -235,6 +251,7 @@ public class WalletController {
 
     }
 
+    //updates the cash display of the ewallet which sets the current cash value of the ewallet
     private void updateCashDisplay() {
         this.lblCashDisplay.setText("$" + ((double)Math.round(100 *this.wallet.getCash()) / 100));
     }

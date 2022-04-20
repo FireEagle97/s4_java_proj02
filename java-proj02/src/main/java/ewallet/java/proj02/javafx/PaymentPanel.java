@@ -39,6 +39,7 @@ public class PaymentPanel {
         Button btnAddCash = new Button("Add Cash");
 
         this.lblError = new Label();
+        this.lblError.setStyle("-fx-background-color: #ff0000");
         Label lblNotification = new Label("<Notification text eg. 50% limit reached>");
         //Label lblNotification = new Label(CreditCardView.update());
         HBox hbCardPayment = new HBox(this.tfCardNumberInput, this.tfPayCardAmount);
@@ -53,9 +54,28 @@ public class PaymentPanel {
         this.vbPayment.getChildren().addAll(lblCashDisplay, vbAddCashBox, vbCardPayment,
                 vbCashPayment, lblError, lblNotification);
 
-        btnAddCash.setOnAction(evt  ->this.walletC.handleAddCash(this));
-        btnCashPay.setOnAction(evt -> this.walletC.handlePayWithCash(this));
-        btnCardPay.setOnAction(evt -> this.walletC.handlePayWithCard(this));
+        btnAddCash.setOnAction(evt  -> {
+            try {
+                this.walletC.handleAddCash(this);
+            } catch (NumberFormatException exc) {
+                setErrorMessage("Invalid input(s) given");
+            }
+
+        });
+        btnCashPay.setOnAction(evt -> {
+            try {
+                this.walletC.handlePayWithCash(this);
+            } catch (NumberFormatException exc) {
+                setErrorMessage("Invalid input(s) given");
+            }
+        });
+        btnCardPay.setOnAction(evt -> {
+            try {
+                this.walletC.handlePayWithCard(this);
+            } catch (NumberFormatException exc) {
+                setErrorMessage("Invalid input(s) given");
+            }
+        });
     }
 
     public VBox getVbPayment() {

@@ -5,6 +5,9 @@ import ewallet.java.proj02.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This acts as a Mock database for storing one wallet.
+ */
 public class StoredWallet {
     private EWallet storedWallet;
 
