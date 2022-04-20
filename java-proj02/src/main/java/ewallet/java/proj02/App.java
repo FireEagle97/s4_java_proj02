@@ -1,6 +1,8 @@
 package ewallet.java.proj02;
 
 import ewallet.java.proj02.javafx.*;
+import javafx.animation.PathTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,8 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -65,6 +69,7 @@ public class App extends Application {
         cbCardDropdown.setOnAction(evt -> walletC.handleViewCard(lblCardDescription));
 
 
+
         //NOTES PANE
         Label lblNoteHeader = new Label("My Notes");
         lblNoteHeader.setStyle("-fx-font-size: 200%; ");
@@ -72,12 +77,15 @@ public class App extends Application {
         vbNotesPanel.applyCss();
         HBox hbNoteDeletionPane = new HBox();
         Button btnDeleteNote = new Button("Delete Note");
+        Button btnListNotes = new Button("Print notes to console (uses another thread)");
         TextField tfNoteIdInput = new TextField();
         hbNoteDeletionPane.getChildren().addAll(tfNoteIdInput, btnDeleteNote);
+        Label lblNotePrint = new Label("");
+        lblNotePrint.setStyle("-fx-text-fill: #000099;");
         tfNoteIdInput.setPromptText("Enter Note ID in list");
 
 
-        Label lblNoteDescription = new Label("Creation Date: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id ex eget diam fermentum viverra at rutrum dolor. Aliquam mattis, ex eu congue fringilla");
+        Label lblNoteDescription = new Label("Note Description...");
         lblNoteDescription.setWrapText(true);
         Button btnAddNote = new Button("Add Note");
         btnAddNote.setOnAction(evt -> stage.setScene(noteCreationScene.getScene()));
@@ -85,6 +93,7 @@ public class App extends Application {
             lblNoteDescription.setText("");
             walletC.handleNoteDeletion(tfNoteIdInput);
         });
+        btnListNotes.setOnAction(evt -> walletC.handlePrintAllNotes());
 
         cbNoteDropdown.setOnAction(evt -> walletC.handleViewNote(lblNoteDescription));
 
@@ -98,13 +107,18 @@ public class App extends Application {
         FileChooser picFileChooser = new FileChooser();
         picFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.bmp"));
         picFileChooser.setTitle("Choose Akshan Picture:");
-        Button btnChooseFile = new Button("chooseFile");
+        Button btnChooseFile = new Button("Choose a Wallet Picture");
         btnChooseFile.setOnAction(e -> {
             File walletPicture = picFileChooser.showOpenDialog(stage);
             if (walletPicture != null) {
                 profilePictureView.setImage(new Image("File:///" + walletPicture.getAbsolutePath()));
                 profilePictureView.scaleXProperty();
                 profilePictureView.scaleYProperty();
+                PathTransition pt = new PathTransition(Duration.millis(500), new Line(100, -100, 100, 100), profilePictureView);
+                PathTransition pt2 = new PathTransition(Duration.millis(200), new Line(100, 100, 100, 70), profilePictureView);
+                PathTransition pt3 = new PathTransition(Duration.millis(200), new Line(100, 70, 100, 100), profilePictureView);
+                SequentialTransition bouncingAnimation = new SequentialTransition(pt, pt2, pt3);
+                bouncingAnimation.play();
             }
         });
 
@@ -115,7 +129,7 @@ public class App extends Application {
         btnLoadWallet.setOnAction(evt -> walletC.handleLoadWallet());
 
 
-        vbNotesPanel.getChildren().addAll(lblNoteHeader, cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane);
+        vbNotesPanel.getChildren().addAll(lblNoteHeader, cbNoteDropdown, lblNoteDescription, btnAddNote, hbNoteDeletionPane, btnListNotes);
         vbCardsPanel.getChildren().addAll(lblCardsHeader, cbCardDropdown, lblCardDescription, btnAddCard, hbCardDeletionPane);
         gpWalletView.add(vbCardsPanel, 1, 0);
         gpWalletView.add(vbNotesPanel, 1, 1);

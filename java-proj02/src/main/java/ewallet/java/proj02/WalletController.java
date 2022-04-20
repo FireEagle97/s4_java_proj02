@@ -13,6 +13,11 @@ import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This acts as a controller class for the E-Wallet app. This controls the events that happen following the click of
+ * buttons as well as updating the combobox list of cards and notes. This manipulates the ewallet object as actions are
+ * handled.
+ */
 public class WalletController {
 
     private EWallet wallet;
@@ -68,20 +73,18 @@ public class WalletController {
         this.wallet.addNote(new Note(day, month, year, body));
         this.wallet.listNotes();
         updateNoteDropdownList();
-        //TODO Add functionality when the max threshhold is reached, display message
+
 
     }
 
     public void handleNoteDeletion(TextField tfNoteIdInput) {
         this.wallet.deleteNote(tfNoteIdInput.getText());
         updateNoteDropdownList();
-        //TODO Add functionality when an existing note could not be found, display message
     }
 
     public void handleCardDeletion(TextField tfCardIdInput) {
         this.wallet.deleteCard(tfCardIdInput.getText());
         updateCardDropdownList();
-        //TODO Add functionality when an existing note could not be found, display message
     }
 
     public void handleViewCard(Label lblCard) {
@@ -120,17 +123,30 @@ public class WalletController {
 
     public void handleAddCash(PaymentPanel paymentPanel) {
         double cashAmount = 0;
-        cashAmount = Double.parseDouble(paymentPanel.getAddCashInput());
-        //TODO add exception handling for non numbers
-        this.wallet.setCash(this.wallet.getCash() + cashAmount);
-        updateCashDisplay();
+        try {
+            cashAmount = Double.parseDouble(paymentPanel.getAddCashInput());
+            if (cashAmount < 0) {
+                paymentPanel.setErrorMessage("Amount cannot be negative");
+                return;
+            }
+            this.wallet.setCash(this.wallet.getCash() + cashAmount);
+            paymentPanel.setErrorMessage("");
+            updateCashDisplay();
+        } catch (NumberFormatException exc) {
+            paymentPanel.setErrorMessage("Invalid amount");
+        }
     }
 
     public void handlePayWithCash(PaymentPanel paymentPanel) {
         double payAmount = 0;
         payAmount = Double.parseDouble(paymentPanel.getPayCashInput());
+        if (payAmount < 0) {
+            paymentPanel.setErrorMessage("Amount cannot be negative");
+            return;
+        }
         if (payAmount <= this.wallet.getCash()) {
             this.wallet.setCash(this.wallet.getCash() - payAmount);
+            paymentPanel.setErrorMessage("");
             updateCashDisplay();
         } else {
             paymentPanel.setErrorMessage("Not enough cash.");
@@ -142,6 +158,10 @@ public class WalletController {
         payAmount = Double.parseDouble(paymentPanel.getPayCardInput());
         String cardNumberInput = paymentPanel.getCardNumberInput();
         try {
+            if (payAmount < 0) {
+                paymentPanel.setErrorMessage("Amount cannot be negative");
+                return;
+            }
             boolean isSuccessful = this.wallet.makePayment(cardNumberInput, payAmount);
             if (!isSuccessful) {
                 paymentPanel.setErrorMessage("Not enough funds; transaction declined");
@@ -165,9 +185,15 @@ public class WalletController {
     public void handleLoadWallet() {
 
         this.wallet = new EWallet(this.storedWallet.getStoredWallet());
+
         updateCashDisplay();
         updateNoteDropdownList();
         updateCardDropdownList();
+    }
+
+    public void handlePrintAllNotes() {
+        Thread noteThread = new Thread(this.wallet);
+        noteThread.start();
     }
 
     private void updateNoteDropdownList() {
@@ -177,9 +203,11 @@ public class WalletController {
         }
         ObservableList<String> notes = FXCollections.observableArrayList(noteIds);
         this.cbNotes.getItems().clear();
+
         this.cbNotes.getItems().addAll(notes);
         if (!notes.isEmpty()) {
-            cbNotes.setValue(notes.get(notes.size() - 1));
+            this.cbNotes.setPromptText("akshan");
+            this.cbNotes.setValue(null);
         }
 
     }
@@ -187,7 +215,6 @@ public class WalletController {
     private void updateCashDisplay() {
         this.lblCashDisplay.setText("$" + ((double)Math.round(100 *this.wallet.getCash()) / 100));
     }
-
 
 
 }
