@@ -10,12 +10,18 @@ package ewallet.java.proj02;/*
  * @author 1811257
  */
 public class DebitCard extends PaymentCard {
-
+    private String securityCode;
+    private int limit;
+    private Date expiryDate;
+    private String message;
+    
     public DebitCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
         super(securityCode, limit, expiryMonth, expiryYear, cardHolderName, cardNumber);
+        this.message = "Your balance is less or equal to 30$";
     }
 
-    @Override
+
+   
     public boolean pay(int amount) {
         System.out.println("paying with debit...");
         if (!checkAvailableFunds(amount)) {
@@ -33,7 +39,19 @@ public class DebitCard extends PaymentCard {
         setLimit(this.getLimit() - amount); //subtract from  bank balance
         return true;
     }
-
+    
+    public int getLimit() {
+        return this.limit;
+    }
+    
+    public void setLimit(int newLimit) {
+        this.limit = newLimit;
+    }
+    
+    public String notifyUser(){
+        return this.message;
+    };
+    
 
     @Override
     public boolean equals(Object otherCard) {
@@ -48,6 +66,11 @@ public class DebitCard extends PaymentCard {
 
     @Override
     public String toString() {
-        return super.toString() + "\n" + "TYPE: DEBIT";
+        return  "cardHolderName: " + this.getCardHolderName() + "\n"
+                +"cardNumber: " + this.getCardNumber() + "\n"
+                +"securityCode: " + securityCode + "\n"
+                + "limit: " + limit + "\n"
+                + "expiryDate: " + expiryDate + "\n"
+                + "Type:DEBIT";
     }
 }

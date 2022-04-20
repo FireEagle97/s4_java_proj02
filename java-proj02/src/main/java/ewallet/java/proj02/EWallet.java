@@ -83,6 +83,27 @@ public class EWallet implements Runnable {
         }
         return -1;
     }
+    
+    public int findCardByNumber(String cardNumberInput) {
+        for (int i = 0; i < this.cardList.size(); i++) {
+            if (this.cardList.get(i).getCardNumber().equals(cardNumberInput)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public void setObservers(){
+        
+        for (Card card:this.cardList){
+            if(card instanceof CreditCard){
+                CreditCardView view = new CreditCardView();
+                LimitNotifier notifier = new LimitNotifier();
+                notifier.attach(view);
+                notifier.notifyUpdate((CreditCard)card);
+            } 
+        }
+    }
 
     public void addCard(Card newCard) {
         if (this.cardList.size() >= 10) {
@@ -90,6 +111,7 @@ public class EWallet implements Runnable {
         }
         this.cardList.add(newCard);
     }
+    
 
     public void deleteCard(int index) {
         this.cardList.remove(index);
@@ -101,19 +123,6 @@ public class EWallet implements Runnable {
             this.cardList.remove(index);
         }
     }
-
-
-    public int findCardByNumber(String cardNumberInput) {
-        for (int i = 0; i < this.cardList.size(); i++) {
-            if (this.cardList.get(i).getCardNumber().equals(cardNumberInput)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-
-
 
     public boolean makePayment(String CardNumber, double amount) {
         if (this.cardList.isEmpty()) {
@@ -137,7 +146,6 @@ public class EWallet implements Runnable {
 
 
     }
-
 
     @Override
     public void run() {

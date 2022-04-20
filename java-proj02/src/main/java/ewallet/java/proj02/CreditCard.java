@@ -17,12 +17,14 @@ public class CreditCard extends PaymentCard {
     private String message;
     
     public CreditCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
+
         super(securityCode, limit,expiryMonth, expiryYear, cardHolderName, cardNumber);
         final int MIN_LIMIT = 100;
         final int MAX_LIMIT = 5000;
         if (limit < MIN_LIMIT || limit > MAX_LIMIT) {
             throw new IllegalArgumentException("Limit must be within " + MIN_LIMIT + " to " + MAX_LIMIT);
         }
+
         this.message = "You exceeded the 50% of the limit";
     }
 
@@ -45,9 +47,14 @@ public class CreditCard extends PaymentCard {
     public int getAmountOwed() {
         return amountOwed;
     }
-
+    
+    public void setAmountOwed(int amount){
+        this.amountOwed=amount;
+    }
+    
     @Override
     public String toString() {
-        return super.toString() + "\n" + "TYPE: CREDIT";
+        return super.toString() + "\n"
+                + "TYPE: CREDIT";
     }
 }
