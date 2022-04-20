@@ -58,7 +58,8 @@ public class EWallet implements Runnable {
             System.out.println(note);
         }
     }
-    
+
+    //adds a note given a new note as param, up to 10
     public void addNote(Note newNote){
         System.out.println(this.noteList.size());
         if (noteList.size() >= 10){
@@ -68,6 +69,7 @@ public class EWallet implements Runnable {
     }
 
 
+    //delete a note given a note id, if the note id exists
     public void deleteNote(String noteId){
         int index = findNoteById(noteId);
         if (index != -1) {
@@ -75,6 +77,7 @@ public class EWallet implements Runnable {
         }
     }
 
+    //finds the note by its note id; if no note found, return -1
     public int findNoteById(String noteId) {
         for (int i = 0; i < this.noteList.size(); i++) {
             if (this.noteList.get(i).getNoteId().equals(noteId)) {
@@ -83,7 +86,9 @@ public class EWallet implements Runnable {
         }
         return -1;
     }
-    
+
+
+    //finds the card by its card number; if no card found, return -1
     public int findCardByNumber(String cardNumberInput) {
         for (int i = 0; i < this.cardList.size(); i++) {
             if (this.cardList.get(i).getCardNumber().equals(cardNumberInput)) {
@@ -105,18 +110,16 @@ public class EWallet implements Runnable {
         }
     }
 
+    //adds a card given a new card as param, up to 10
     public void addCard(Card newCard) {
         if (this.cardList.size() >= 10) {
             throw new IllegalArgumentException("Maximum number of cards reached!");
         }
         this.cardList.add(newCard);
     }
-    
 
-    public void deleteCard(int index) {
-        this.cardList.remove(index);
-    }
 
+    //delete a card given a card number, if the card number exists
     public void deleteCard(String cardNumberInput) {
         int index = findCardByNumber(cardNumberInput);
         if (index != -1) {
@@ -124,6 +127,7 @@ public class EWallet implements Runnable {
         }
     }
 
+    //pays a card, true if successful.
     public boolean makePayment(String CardNumber, double amount) {
         if (this.cardList.isEmpty()) {
             throw new IllegalArgumentException("No cards in this wallet!");
