@@ -23,6 +23,7 @@ import javafx.geometry.Pos;
 
 /**
  * JavaFX App
+ * @author Kyle (1635447) , Dany (1811257)
  */
 public class App extends Application {
 
