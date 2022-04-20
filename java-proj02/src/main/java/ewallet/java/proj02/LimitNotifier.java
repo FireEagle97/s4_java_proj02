@@ -23,6 +23,7 @@ public class LimitNotifier implements Subject {
         observers.remove(o);
     }
     
+    
     @Override
     public void notifyUpdate(CreditCard card){
         for(Observer o: observers) {
