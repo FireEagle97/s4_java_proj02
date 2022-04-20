@@ -1,6 +1,8 @@
 package ewallet.java.proj02;
 
 import ewallet.java.proj02.javafx.*;
+import javafx.animation.PathTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,9 +12,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.ListView;
+import javafx.util.Duration;
+
 
 import java.io.File;
 import javafx.geometry.Insets;
@@ -55,19 +60,9 @@ public class App extends Application {
         VBox vbLeftSection = new VBox();
         vbLeftSection.setSpacing(10);
         VBox vbRightSection = new VBox();
-
-        //Label lblCardDescription = new Label("Creation Date: Lorem ipsum dolor sit amet,");
         Label lblCardDescription = new Label("");
         Button btnAddCard = new Button("Add new Card");
-        //HBox hbCardDeletionPane = new HBox();
-        //Button btnDeleteCard = new Button("Delete Card");
-        //TextField tfCardIdInput = new TextField();
-        //hbCardDeletionPane.getChildren().addAll(tfCardIdInput,btnDeleteCard);
-        //tfCardIdInput.setPromptText("Enter Card ID in list");
-//        btnDeleteCard.setOnAction(evt -> {
-//            lblCardDescription.setText("");
-//            walletC.handleCardDeletion(lblCardDescription.getText());
-//        });
+  
         btnAddCard.setOnAction(evt -> {
             stage.setScene(cardCreationScene.getScene());
         });
@@ -96,17 +91,22 @@ public class App extends Application {
         });
 
 
+
         //NOTES PANE
         Label lblNoteHeader = new Label("My Notes");
         lblNoteHeader.setStyle("-fx-font-size: 200%; ");
         VBox vbNotesPanel = new VBox();
         vbNotesPanel.setSpacing(10);
         vbNotesPanel.applyCss();
-        HBox hbNoteDeletionPane = new HBox();
-        Label lblNoteDescription = new Label("");
+        Button btnListNotes = new Button("Print notes to console (uses another thread)");
+        Label lblNoteDescription = new Label("Note Description...");
         lblNoteDescription.setWrapText(true);
         Button btnAddNote = new Button("Add Note");
+        
+        
         btnAddNote.setOnAction(evt -> stage.setScene(noteCreationScene.getScene()));
+        btnAddNote.setOnAction(evt -> stage.setScene(noteCreationScene.getScene()));
+        btnListNotes.setOnAction(evt -> walletC.handlePrintAllNotes());
 
         walletC.getCbNotes().setOnAction(evt -> {
                 StackPane noteView = new StackPane();
@@ -143,13 +143,18 @@ public class App extends Application {
         FileChooser picFileChooser = new FileChooser();
         picFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.bmp"));
         picFileChooser.setTitle("Choose Akshan Picture:");
-        Button btnChooseFile = new Button("chooseFile");
+        Button btnChooseFile = new Button("Choose a Wallet Picture");
         btnChooseFile.setOnAction(e -> {
             File walletPicture = picFileChooser.showOpenDialog(stage);
             if (walletPicture != null) {
                 profilePictureView.setImage(new Image("File:///" + walletPicture.getAbsolutePath()));
                 profilePictureView.scaleXProperty();
                 profilePictureView.scaleYProperty();
+                PathTransition pt = new PathTransition(Duration.millis(500), new Line(100, -100, 100, 100), profilePictureView);
+                PathTransition pt2 = new PathTransition(Duration.millis(200), new Line(100, 100, 100, 70), profilePictureView);
+                PathTransition pt3 = new PathTransition(Duration.millis(200), new Line(100, 70, 100, 100), profilePictureView);
+                SequentialTransition bouncingAnimation = new SequentialTransition(pt, pt2, pt3);
+                bouncingAnimation.play();
             }
         });
 
@@ -158,14 +163,13 @@ public class App extends Application {
         btnSaveWallet.setOnAction(evt -> walletC.handleSaveWallet());
         Button btnLoadWallet = new Button("Load Wallet");
         btnLoadWallet.setOnAction(evt -> walletC.handleLoadWallet());
-
-
+        
+        
         vbNotesPanel.getChildren().addAll(lblNoteHeader, btnAddNote,walletC.getCbNotes(), lblNoteDescription /*, hbNoteDeletionPane*/);
         vbCardsPanel.getChildren().addAll(lblCardsHeader, btnAddCard,walletC.getCbCards(), lblCardDescription /*hbCardDeletionPane*/);
         hbCN.getChildren().addAll(vbNotesPanel,vbCardsPanel);
         hbLS.getChildren().addAll(btnLoadWallet,btnSaveWallet);
-        vbLeftSection.getChildren().addAll(profilePictureView, btnChooseFile, hbLS);
-        //vbRightSection.getChildren().addAll(paymentPanel.getVbPayment(),hbCN);
+        vbLeftSection.getChildren().addAll(profilePictureView, btnChooseFile, hbLS, btnListNotes);
         gpWalletView.add(vbRightSection,1,0);
         gpWalletView.add(hbCN,1,1);
         gpWalletView.add(hbLS, 0, 1);

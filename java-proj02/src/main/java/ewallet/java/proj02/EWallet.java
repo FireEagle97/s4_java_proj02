@@ -4,14 +4,14 @@ package ewallet.java.proj02;/*
  * and open the template in the editor.
  */
 
-/**
+/**Represents a digital wallet. Can store up to 10 cards of any type, 10 notes, and stores cash.
  *
  * @author 1811257
  */
 import java.util.ArrayList;
 import java.util.List;
 
-public class EWallet {
+public class EWallet implements Runnable {
     private List<Card> cardList;
     private List<Note> noteList;
     private double cash;
@@ -60,15 +60,19 @@ public class EWallet {
     }
     
     public void addNote(Note newNote){
-        if (noteList.size() > 10){
+        System.out.println(this.noteList.size());
+        if (noteList.size() >= 10){
             throw new IllegalArgumentException("number of notes exceeds the limit");
-        } 
+        }
         noteList.add(newNote);
     }
 
 
     public void deleteNote(String noteId){
-        this.noteList.remove(findNoteById(noteId));
+        int index = findNoteById(noteId);
+        if (index != -1) {
+            this.noteList.remove(index);
+        }
     }
 
     public int findNoteById(String noteId) {
@@ -114,13 +118,11 @@ public class EWallet {
     }
 
     public void deleteCard(String cardNumberInput) {
-        this.cardList.remove(findCardByNumber(cardNumberInput));
+        int index = findCardByNumber(cardNumberInput);
+        if (index != -1) {
+            this.cardList.remove(index);
+        }
     }
-
-
-    
-
-
 
     public boolean makePayment(String CardNumber, double amount) {
         if (this.cardList.isEmpty()) {
@@ -133,9 +135,6 @@ public class EWallet {
 
         Card selectedCard = this.cardList.get(cardIndex);
 
-        if (selectedCard == null) {
-            throw new IllegalArgumentException("Cannot find card");
-        }
 
         if (selectedCard instanceof PaymentCard) {
             boolean isSuccessful = ((PaymentCard) selectedCard).pay((int)amount);
@@ -145,7 +144,11 @@ public class EWallet {
         }
 
 
+
     }
 
-    
+    @Override
+    public void run() {
+        listNotes();
+    }
 }

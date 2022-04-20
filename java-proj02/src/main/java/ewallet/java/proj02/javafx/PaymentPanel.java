@@ -8,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Representing a panel containing all payment fields to make payments within this wallet.
+ */
 public class PaymentPanel {
 
         private VBox vbPayment;

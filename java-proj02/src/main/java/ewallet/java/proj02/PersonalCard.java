@@ -4,7 +4,7 @@ package ewallet.java.proj02;/*
  * and open the template in the editor.
  */
 
-/**
+/**Represents a personal card which is a Card. Cannot use for payment and has a short description what this card is for.
  *
  * @author 1811257
  */

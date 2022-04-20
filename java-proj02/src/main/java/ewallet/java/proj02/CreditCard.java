@@ -7,7 +7,7 @@ package ewallet.java.proj02;
  * and open the template in the editor.
  */
 
-/**
+/**Represent a credit card that is a Card and a Payment card. when the card is used the amount owed is increased and cannot go above the credit limit
  *
  * @author 1811257
  */
@@ -17,7 +17,14 @@ public class CreditCard extends PaymentCard {
     private String message;
     
     public CreditCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
-        super(securityCode,limit,expiryMonth,expiryYear,cardHolderName,cardNumber);
+
+        super(securityCode, limit,expiryMonth, expiryYear, cardHolderName, cardNumber);
+        final int MIN_LIMIT = 100;
+        final int MAX_LIMIT = 5000;
+        if (limit < MIN_LIMIT || limit > MAX_LIMIT) {
+            throw new IllegalArgumentException("Limit must be within " + MIN_LIMIT + " to " + MAX_LIMIT);
+        }
+
         this.message = "You exceeded the 50% of the limit";
     }
 

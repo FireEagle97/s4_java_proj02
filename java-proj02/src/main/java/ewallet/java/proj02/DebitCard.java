@@ -4,7 +4,8 @@ package ewallet.java.proj02;/*
  * and open the template in the editor.
  */
 
-/**
+/**Represents a Debit card which is a Card and a PaymentCard. Debit cards have a limit which is = to the money available in the bank
+ * This limit is deduced as payments are done and cannot go below 0.
  *
  * @author 1811257
  */
