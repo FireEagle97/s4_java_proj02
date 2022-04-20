@@ -18,7 +18,13 @@ public class PersonalCard extends Card {
         this.description = description;
     }
 
-   
+    public PersonalCard(String cardHolderName, String cardNumber, String description) {
+        super(cardHolderName, cardNumber);
+        this.expiryDate = null;
+        this.description = description;
+    }
+
+
     public Date getExpiryDate() {
         return this.expiryDate;
     }
@@ -40,7 +46,7 @@ public class PersonalCard extends Card {
     public String toString() {
         return "cardHolderName: " + this.getCardHolderName() + "\n"
                 + "cardNumber: " + this.getCardNumber()+ "\n"
-                + "expiryDate: " + expiryDate + "\n"
+                + "expiryDate: " + (expiryDate != null ? expiryDate : "N/A") + "\n"
                 +"description: " + description;
     }
 
