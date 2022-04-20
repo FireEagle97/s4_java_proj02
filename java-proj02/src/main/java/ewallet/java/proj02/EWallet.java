@@ -136,11 +136,11 @@ public class EWallet implements Runnable {
         }
 
         Card selectedCard = this.cardList.get(cardIndex);
-        notifier.notifyUpdate((CreditCard)selectedCard);
         
 
         if (selectedCard instanceof PaymentCard) {
             boolean isSuccessful = ((PaymentCard) selectedCard).pay((int)amount);
+            notifier.notifyUpdate((CreditCard)selectedCard);
             return isSuccessful;
         } else {
             throw new IllegalArgumentException("Not a payment card.");
