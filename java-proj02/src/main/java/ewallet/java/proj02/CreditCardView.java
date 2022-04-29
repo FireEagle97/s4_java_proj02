@@ -16,7 +16,7 @@ public class CreditCardView implements Observer {
     @Override
     public void update(CreditCard card){
             if(card.getAmountOwed() > 0.5*card.getLimit()){
-            System.out.println("test"+card.notifyUser());
+            System.out.println(card.notifyUser());
         }
 
     }
