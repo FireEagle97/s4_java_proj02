@@ -1,6 +1,10 @@
 package ewallet.java.proj02;
 //import javax.naming.LimitExceededException;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,10 +15,11 @@ package ewallet.java.proj02;
  *
  * @author 1811257
  */
-public class CreditCard extends PaymentCard {
+public class CreditCard extends PaymentCard implements Subject{
 
     private int amountOwed;
     private String message;
+    private List<Observer> observers;
     
     public CreditCard(String securityCode, int limit, int expiryMonth, int expiryYear, String cardHolderName, String cardNumber) {
 
@@ -26,6 +31,7 @@ public class CreditCard extends PaymentCard {
         }
 
         this.message = "You exceeded the 50% of the limit";
+        this.observers = new ArrayList<>();
     }
 
     
@@ -50,6 +56,24 @@ public class CreditCard extends PaymentCard {
     
     public void setAmountOwed(int amount){
         this.amountOwed=amount;
+    }
+    
+     @Override
+    public void attach(Observer o){
+        observers.add(o);
+        
+    }
+    
+    @Override
+    public void detach(Observer o){
+        observers.remove(o);
+    }
+    
+    @Override
+    public void notifyUpdate(CreditCard card){
+        for(Observer o: observers) {
+            o.update(card);
+        }
     }
     
     @Override
